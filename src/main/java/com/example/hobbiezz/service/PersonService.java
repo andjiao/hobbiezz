@@ -2,9 +2,11 @@ package com.example.hobbiezz.service;
 
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.PersonRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PersonService {
 
     PersonRepository personRepository;
