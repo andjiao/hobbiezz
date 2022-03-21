@@ -1,5 +1,6 @@
 package com.example.hobbiezz.entity;
 
+import com.example.hobbiezz.dto.PersonRequest;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Person {
     @Column(length = 20)
     String phone;
 
-    /*
+
     @ManyToOne
     Address connectedAddress;
 
@@ -59,7 +60,7 @@ public class Person {
         this.connectedAddress=connectedAddress;
     }
 
-    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
+   /* @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
 
@@ -67,9 +68,9 @@ public class Person {
 
     public void addHobby(HobbyInfo hi){
         hobbyInfos.add(hi);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
@@ -80,9 +81,9 @@ public class Person {
                 ", connectedAddress=" + connectedAddress +
                 ", hobbyInfos=" + hobbyInfos +
                 '}';
-    }
+    }*/
 
-     */
+
 }
 
 

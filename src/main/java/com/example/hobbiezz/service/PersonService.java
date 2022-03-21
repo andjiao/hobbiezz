@@ -1,5 +1,7 @@
 package com.example.hobbiezz.service;
 
+import com.example.hobbiezz.dto.PersonRequest;
+import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.PersonRepository;
 
@@ -14,7 +16,7 @@ public class PersonService {
         this.personRepository=personRepository;
     }
 
-/*
+
     public PersonResponse addPerson(PersonRequest body) throws Exception {
 
         //Kun, hvis e-mail skal være unik
@@ -25,16 +27,14 @@ public class PersonService {
         return new PersonResponse(personNew,true,true);
     }
 
- */
 
-/*
     //Omskriv med stream
     public List<PersonResponse> getPeople(){
         List<Person> persons = personRepository.findAll();
         return PersonResponse.getPersonEntities(persons);
     }
 
- */
+
 
     public List<Person> getPeople2(){
         List<Person> persons = personRepository.findAll();
@@ -47,10 +47,9 @@ public class PersonService {
 
 
 
-/*
     //Til denne metode skal der huskes at lave en constructure i PersonResponse
-    public PersonResponse updatePerson (PersonRequest personToEdit, int personId){
-        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Client4xxException("No person with provided ID found" + personId));
+    public PersonResponse updatePerson (PersonRequest personToEdit, int personId) throws Exception {
+        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Exception("No person with provided ID found" + personId));
         personUpdated.setEmail(personToEdit.getEmail());
         personUpdated.setFirstName(personToEdit.getFirstName());
         personUpdated.setLastName(personToEdit.getLastName());
@@ -59,7 +58,6 @@ public class PersonService {
         return new PersonResponse(personRepository.save(personUpdated));
     }
 
- */
 
     public void deletePerson(int id){
         personRepository.deleteById(id);
