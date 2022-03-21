@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressRequest {
+    int id;
     String street;
     String additionalInfo;
     String zipCode;

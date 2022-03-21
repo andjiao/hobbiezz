@@ -36,8 +36,9 @@ public class Address {
         this.city = city;
     }
 
+
     public Address (AddressRequest body){
-        this(body.getStreet(), body.getStreet(), body.getZipCode(), body.getCity());
+        this(body.getId(),body.getStreet(), body.getStreet(), body.getZipCode(), body.getCity());
     }
 }
 

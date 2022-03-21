@@ -7,10 +7,11 @@ import com.example.hobbiezz.dto.AddressResponse;
 import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@ToString
 @Service
 public class AddressService {
 
@@ -25,6 +26,7 @@ public class AddressService {
     }
 
 
+    //Denne metode virker - Andrea
    public AddressResponse addAddress(AddressRequest body) throws Exception {
 
         Address addressNew = addressRepository.save(new Address(body));
@@ -48,11 +50,20 @@ public class AddressService {
 
     }
 
+    //Denne metode virker- Andrea
     public AddressResponse getAddressById(int id) throws Exception {
         Address address = addressRepository.findById(id).orElseThrow(()->new Exception(
                 "No address with this id exists"));
         return new AddressResponse(address);
     }
+
+    /*    public CarResponse getCar(int id,boolean all) throws Exception {
+            //Car car = carRepository.findById(id).orElseThrow(()->new Exception("not found"));
+
+            Car car2 = carRepository.findById(id).orElseThrow(()->new Client4xxException("not found"));
+            return new CarResponse(car2, false);
+
+        }*/
 
 
 

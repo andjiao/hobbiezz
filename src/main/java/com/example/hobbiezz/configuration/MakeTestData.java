@@ -1,7 +1,11 @@
 package com.example.hobbiezz.configuration;
 
+import com.example.hobbiezz.dto.AddressResponse;
+import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.service.AddressService;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -13,11 +17,19 @@ import org.springframework.stereotype.Controller;
 public class MakeTestData implements ApplicationRunner {
 
     PersonRepository memberRepository;
+    AddressRepository addressRepository;
+    AddressService addressService;
     PersonService personService;
     //HobbyInfoService hobbyInfoService;
     //HobbyRepo hobbyRepo;
 
-    public MakeTestData(PersonRepository memberRepository) {
+    /*public MakeTestData(PersonRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }*/
+
+    public MakeTestData(AddressRepository addressRepository, AddressService addressService, PersonRepository memberRepository) {
+        this.addressRepository = addressRepository;
+        this.addressService= addressService;
         this.memberRepository = memberRepository;
     }
 
@@ -39,10 +51,23 @@ public class MakeTestData implements ApplicationRunner {
         System.out.println("--------------Testdata kørt--------------");
     }
 
+    public void makeAddress() throws Exception {
+        Address a1 = addressRepository.save(new Address("annegade", "annanans", "2300","Amager"));
+
+        Address a2 = addressRepository.save(new Address("bananegade", "billy booz", "2300","Amager"));
+
+        Address a3 = addressRepository.save(new Address("califonriagade", "bio molekulært something", "2300","Amager"));
+
+        AddressResponse findAddress = addressService.getAddressById(2);
+        System.out.println(findAddress.toString());
+    }
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        //makeMembers();
+        makeMembers();
+
+        makeAddress();
 
     }
 }
