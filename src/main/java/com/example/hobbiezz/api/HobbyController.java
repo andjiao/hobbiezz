@@ -16,12 +16,15 @@ import java.util.List;
 public class HobbyController {
 
     HobbyService hobbyService;
-    HobbyRepository hobbyRepo;
+    HobbyRepository hobbyRepository;
 
-    @GetMapping
-    public List<HobbyResponse> getHobbies (){
-        return hobbyService.getHobbies();
+    //Metoden virker for sig selv, men controlleren virker ikke 21/3
+    @GetMapping("/all")
+    public List<Hobby> getHobbies (){
+        return hobbyService.getHobbies2();
     }
+
+    //Metoden virker for sig selv, men controlleren virker ikke 21/3
     @GetMapping("/{name}")
     public HobbyResponse getHobby(@PathVariable String name) throws Exception{
         return hobbyService.getHobby(name);
@@ -30,8 +33,7 @@ public class HobbyController {
     //Dette endpoint returnerer den hobby, der er tilknyttet en hobbInfo. Skal nok ikke bruges, men demonstrerer metoden.
     @GetMapping
     public Hobby getPersonsHobbies (@PathVariable HobbyInfo hobbyInfo){
-        return hobbyRepo.findHobbyByHobbyInfos(hobbyInfo);
+        return hobbyRepository.findHobbyByHobbyInfos(hobbyInfo);
     }
-
 
 }

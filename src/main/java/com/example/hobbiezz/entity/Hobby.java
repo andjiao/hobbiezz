@@ -49,16 +49,4 @@ public class Hobby {
     public void addHobbyInfos(HobbyInfo hi){
         hobbyInfos.add(hi);
     }
-
-    /*
-       @OneToMany(mappedBy = "reservedCar", fetch = FetchType.EAGER)
-    // Removes the Getter & Setter for this
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
-
-    private Set<Reservation> reservations = new HashSet<>();
-
-    public void addResevertaion (Reservation res){
-        reservations.add(res);
-    }*/
 }
