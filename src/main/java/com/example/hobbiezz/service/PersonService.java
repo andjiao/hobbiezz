@@ -1,7 +1,10 @@
 package com.example.hobbiezz.service;
 
+import com.example.hobbiezz.dto.PersonRequest;
+import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.PersonRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class PersonService {
         this.personRepository=personRepository;
     }
 
-/*
+
     public PersonResponse addPerson(PersonRequest body) throws Exception {
 
         //Kun, hvis e-mail skal være unik
@@ -27,7 +30,6 @@ public class PersonService {
         return new PersonResponse(personNew,true,true);
     }
 
- */
 
 /*
     //Omskriv med stream
@@ -43,16 +45,15 @@ public class PersonService {
         return persons;
     }
 
-    public Person getPerson(int id){
-        return personRepository.getById(id);
+    public Person getPerson(int id) throws Exception {
+        Person person = personRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+        return person;
     }
 
-
-
-/*
+    //Andrea
     //Til denne metode skal der huskes at lave en constructure i PersonResponse
-    public PersonResponse updatePerson (PersonRequest personToEdit, int personId){
-        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Client4xxException("No person with provided ID found" + personId));
+    public PersonResponse updatePerson (PersonRequest personToEdit, int personId) throws Exception {
+        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Exception("No person with provided ID found" + personId));
         personUpdated.setEmail(personToEdit.getEmail());
         personUpdated.setFirstName(personToEdit.getFirstName());
         personUpdated.setLastName(personToEdit.getLastName());
@@ -61,7 +62,6 @@ public class PersonService {
         return new PersonResponse(personRepository.save(personUpdated));
     }
 
- */
 
     public void deletePerson(int id){
         personRepository.deleteById(id);

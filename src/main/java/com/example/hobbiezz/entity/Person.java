@@ -1,5 +1,6 @@
 package com.example.hobbiezz.entity;
 
+import com.example.hobbiezz.dto.PersonRequest;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class Person {
         this.phone = phone;
     }
 
-    /*
+
     @ManyToOne
     Address connectedAddress;
 
@@ -49,14 +51,6 @@ public class Person {
         this.phone = body.getPhone();
     }
 
-    public Person(String email, String firstName, String lastName, String phone) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-    }
-
-
 
     public Person(String email, String firstName, String lastName, String phone, Address connectedAddress){
         this.email = email;
@@ -66,6 +60,7 @@ public class Person {
         this.connectedAddress=connectedAddress;
     }
 
+    /*
     @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
@@ -75,21 +70,8 @@ public class Person {
     public void addHobby(HobbyInfo hi){
         hobbyInfos.add(hi);
     }
+    */
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", connectedAddress=" + connectedAddress +
-                ", hobbyInfos=" + hobbyInfos +
-                '}';
-    }
-
-     */
 }
 
 
