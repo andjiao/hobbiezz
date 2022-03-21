@@ -1,5 +1,6 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.PersonRepository;
@@ -24,28 +25,31 @@ public class PersonController {
     //HobbyInfoRepo hobbyInfoRepo;
     //HobbyRepo hobbyRepo;
 
-/*
+
     @PostMapping
     public PersonResponse addPerson(@RequestBody PersonRequest body) throws Exception {
         return personService.addPerson(body);
     }
 
+    /*
     @PutMapping("/{id}")
     public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id){
         return personService.updatePerson(body,id);
     }
 
- */
+     */
 
+
+    //Virker 21/3
     @GetMapping
     public List<Person> getPeople (){
         return personService.getPeople2();
     }
 
 
-
+    //Virker 21/3
     @GetMapping("/{id}")
-    public Person getPerson (@PathVariable int id){
+    public Person getPerson (@PathVariable int id) throws Exception {
         return personService.getPerson(id);
     }
 
