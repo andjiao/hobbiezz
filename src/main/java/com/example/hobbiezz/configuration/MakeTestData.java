@@ -70,6 +70,7 @@ public class MakeTestData implements ApplicationRunner {
     }
 
 
+    //Virker ikke
     public void makeHobbyInfos(){
         Hobby h1 = new Hobby
                 ("Fodbold", "fodbold.dk", "Kategori", "out");
