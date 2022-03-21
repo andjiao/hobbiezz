@@ -1,11 +1,14 @@
 package com.example.hobbiezz.service;
 
 import com.example.hobbiezz.dto.HobbyInfoResponse;
+import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class HobbyInfoService {
@@ -19,9 +22,10 @@ public class HobbyInfoService {
         this.hobbyInfoRepo= hobbyInfoRepo;
         this.personRepository=personRepository;
     }
-/*
-    public List<HobbyInfo> getPersonalHobbyList(String email){
-        personRepository.getById(email).get;
+
+    /*
+    public List<HobbyInfo> getPersonalHobbyList(int id){
+        personRepository.getById(id).get;
 
 
         person.getEmail()
@@ -29,13 +33,14 @@ public class HobbyInfoService {
         return hobbyInfoRepo.findAll();
     }
 
- */
+     */
+
 
     public HobbyInfoResponse getHobbyInfo(int id) throws Exception {
         return new HobbyInfoResponse(hobbyInfoRepo.findById(id).orElseThrow(()-> new Exception("Could not find Hobby")));
     }
 
-    /*
+
     //Denne metode opretter en ny HobbyInfo, der forbinder en hobby med en person.
     public HobbyInfo connectHobbyToPerson(Person person, Hobby hobby){
         HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(hobby, person));
@@ -43,7 +48,7 @@ public class HobbyInfoService {
         return newHobbyInfo;
     }
 
-     */
+
 
     //
     public void getPersonsHobbies(Person person){

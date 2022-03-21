@@ -1,6 +1,7 @@
 package com.example.hobbiezz.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class HobbyInfo {
 
     @Id
@@ -31,7 +32,6 @@ public class HobbyInfo {
     @ManyToOne
     Person hasHobbies;
 
-/*
     public HobbyInfo(Hobby hobbyObject, Person hasHobbies){
         this.hasHobbies=hasHobbies;
         this.hobbyObject =hobbyObject;
@@ -39,6 +39,4 @@ public class HobbyInfo {
         hasHobbies.addHobby(this);
 
     }
-
- */
 }
