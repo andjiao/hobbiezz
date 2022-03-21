@@ -48,17 +48,9 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-    }
-
-
-
-    public Person(String email, String firstName, String lastName, String phone, Address connectedAddress){
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
         this.connectedAddress=connectedAddress;
     }
+
 
    /* @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)

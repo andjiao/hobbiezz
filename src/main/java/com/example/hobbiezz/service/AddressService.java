@@ -25,13 +25,27 @@ public class AddressService {
     }
 
 
-    public AddressResponse addAddress(AddressRequest body){
+   public AddressResponse addAddress(AddressRequest body) throws Exception {
+
+        Address addressNew = addressRepository.save(new Address(body));
+       return new AddressResponse(addressNew);
+
+
+       /*
+
+           public CarResponse addCar(CarRequest body){
+            Car carNew = carRepository.save(new Car(body));
+            //hvis vi ømnsker alle informationer, skal includeAll være true, ønsker vi ikke alle informationer,
+            // skal det være false
+            return new CarResponse(carNew, true) ;
+        }
+
+
         if (addressRepository.addressExists(body)) {
             System.out.println("Address is already in database");
             return new AddressResponse(body);
-        }
-        Address addressNew = addressRepository.save(new Address(body));
-        return new AddressResponse(addressNew);
+        }*/
+
     }
 
     public AddressResponse getAddressById(int id) throws Exception {
@@ -39,6 +53,8 @@ public class AddressService {
                 "No address with this id exists"));
         return new AddressResponse(address);
     }
+
+
 
     public AddressResponse getAddressConnectedToPerson(int personId) throws Exception {
         Address address = personRepository.findById(personId).get().getConnectedAddress();
