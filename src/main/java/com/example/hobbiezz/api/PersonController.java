@@ -31,13 +31,11 @@ public class PersonController {
         return personService.addPerson(body);
     }
 
-    /*
+    //Virker 21/3
     @PutMapping("/{id}")
-    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id){
+    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) throws Exception {
         return personService.updatePerson(body,id);
     }
-
-     */
 
 
     //Virker 21/3
@@ -89,6 +87,8 @@ public class PersonController {
      */
 
 
+    //Lavet af Isabel
+    //Virker 21/3
     @DeleteMapping("/{id}")
     public void deleteMember(@PathVariable int id) {
         personService.deletePerson(id);

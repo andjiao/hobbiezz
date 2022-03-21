@@ -1,10 +1,14 @@
 package com.example.hobbiezz.dto;
 
 import com.example.hobbiezz.entity.Person;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class PersonResponse {
     int id;
     String email;
