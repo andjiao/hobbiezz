@@ -6,6 +6,7 @@ import com.example.hobbiezz.dto.AddressRequest;
 import com.example.hobbiezz.dto.AddressResponse;
 import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.repository.AddressRepository;
+import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class AddressService {
 
     AddressRepository addressRepository;
 
-    //PersonRepository personRepository;
+    PersonRepository personRepository;
 
 
     //Constructor
