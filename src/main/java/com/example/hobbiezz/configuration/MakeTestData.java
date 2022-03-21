@@ -1,9 +1,12 @@
 package com.example.hobbiezz.configuration;
 
 import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.HobbyService;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.boot.ApplicationArguments;
@@ -17,15 +20,20 @@ public class MakeTestData implements ApplicationRunner {
 
     PersonRepository memberRepository;
     PersonService personService;
-    //HobbyInfoService hobbyInfoService;
+    HobbyInfoService hobbyInfoService;
     HobbyRepository hobbyRepository;
     HobbyService hobbyService;
+    HobbyInfoRepository hobbyInfoRepository;
 
-    public MakeTestData(PersonRepository memberRepository, PersonService personService, HobbyRepository hobbyRepository, HobbyService hobbyService) {
+    public MakeTestData(PersonRepository memberRepository, PersonService personService,
+                        HobbyInfoService hobbyInfoService, HobbyRepository hobbyRepository,
+                        HobbyService hobbyService, HobbyInfoRepository hobbyInfoRepository) {
         this.memberRepository = memberRepository;
         this.personService = personService;
+        this.hobbyInfoService = hobbyInfoService;
         this.hobbyRepository = hobbyRepository;
         this.hobbyService = hobbyService;
+        this.hobbyInfoRepository = hobbyInfoRepository;
     }
 
 
@@ -44,7 +52,7 @@ public class MakeTestData implements ApplicationRunner {
 
          */
 
-        System.out.println("--------------Testdata kørt--------------");
+        System.out.println("--------------makeMembers testdata kørt--------------");
     }
 
     public void makeHobbies(){
@@ -58,7 +66,20 @@ public class MakeTestData implements ApplicationRunner {
 
          */
 
-        System.out.println("--------------Testdata kørt--------------");
+        System.out.println("--------------makeHobbies testdata kørt--------------");
+    }
+
+
+    public void makeHobbyInfos(){
+        Hobby h1 = new Hobby
+                ("Fodbold", "fodbold.dk", "Kategori", "out");
+
+        Person m1 = new Person
+                ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416");
+
+        HobbyInfo hi1 = hobbyInfoRepository.save(new HobbyInfo(h1, m1));
+
+        System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
 
     @Override
@@ -67,6 +88,8 @@ public class MakeTestData implements ApplicationRunner {
         makeMembers();
 
         makeHobbies();
+        //makeHobbyInfos();
+
         System.out.println(hobbyService.getHobbies2());
         System.out.println(hobbyService.getHobby("Fodbold"));
 
