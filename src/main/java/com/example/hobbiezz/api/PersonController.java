@@ -26,6 +26,7 @@ public class PersonController {
     //HobbyRepo hobbyRepo;
 
 
+    //Virker 21/3
     @PostMapping
     public PersonResponse addPerson(@RequestBody PersonRequest body) throws Exception {
         return personService.addPerson(body);
