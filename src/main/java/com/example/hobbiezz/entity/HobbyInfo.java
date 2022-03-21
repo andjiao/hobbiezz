@@ -24,11 +24,9 @@ public class HobbyInfo {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss",shape = JsonFormat.Shape.STRING)
     LocalDateTime hobbyAdded;
 
-    /*
+
     @ManyToOne
     Hobby hobbyObject;
-
-     */
 
     @ManyToOne
     Person hasHobbies;
