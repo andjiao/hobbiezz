@@ -24,7 +24,7 @@ public class AddressService {
         this.addressRepository=addressRepository;
     }
 
-
+/*
     public AddressResponse addAddress(AddressRequest body){
         if (addressRepository.addressExists(body)) {
             System.out.println("Address is already in database");
@@ -33,6 +33,8 @@ public class AddressService {
         Address addressNew = addressRepository.save(new Address(body));
         return new AddressResponse(addressNew);
     }
+
+ */
 
     public AddressResponse getAddressById(int id) throws Exception {
         Address address = addressRepository.findById(id).orElseThrow(()->new Exception(
