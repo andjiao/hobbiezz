@@ -60,7 +60,7 @@ public class Person {
         this.connectedAddress=connectedAddress;
     }
 
-    /*
+
     @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
@@ -70,7 +70,6 @@ public class Person {
     public void addHobby(HobbyInfo hi){
         hobbyInfos.add(hi);
     }
-    */
 
 }
 
