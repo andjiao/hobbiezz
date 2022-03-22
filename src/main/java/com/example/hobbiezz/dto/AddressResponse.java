@@ -1,7 +1,11 @@
 package com.example.hobbiezz.dto;
 
 import com.example.hobbiezz.entity.Address;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AddressResponse {
 
     String street;
