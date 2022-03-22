@@ -72,7 +72,7 @@ public class MakeTestData implements ApplicationRunner {
     }
 
 
-    //Virker ikke
+    //Virker!!!
     public void makeHobbyInfos(){
         Hobby h1 = new Hobby
                 ("Fodbold", "fodbold.dk", "Kategori", "out");
@@ -89,6 +89,8 @@ public class MakeTestData implements ApplicationRunner {
 
         System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
+
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
