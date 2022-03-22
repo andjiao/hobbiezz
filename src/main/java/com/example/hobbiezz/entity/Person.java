@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import java.util.HashSet;
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -43,6 +44,18 @@ public class Person {
     @ManyToOne
     Address connectedAddress;
 
+    /*@OneToMany(mappedBy = "personalAddress", fetch = FetchType.EAGER)
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+
+    private Set<Address> personalAddress = new HashSet<>();
+
+    public void addAddress(Address address){
+        personalAddress.add(address);
+    }
+
+     */
+
 
     public Person(PersonRequest body) {
         this.email = body.getEmail();
@@ -62,8 +75,6 @@ public class Person {
 
 
     @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 

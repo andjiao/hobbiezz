@@ -14,6 +14,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
+
 @Controller
 @Profile("!test")
 public class MakeTestData implements ApplicationRunner {
@@ -74,11 +76,16 @@ public class MakeTestData implements ApplicationRunner {
     public void makeHobbyInfos(){
         Hobby h1 = new Hobby
                 ("Fodbold", "fodbold.dk", "Kategori", "out");
+        hobbyRepository.save(h1);
 
         Person m1 = new Person
                 ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416");
+        memberRepository.save(m1);
 
-        HobbyInfo hi1 = hobbyInfoRepository.save(new HobbyInfo(h1, m1));
+        HobbyInfo hi1 = new HobbyInfo(LocalDateTime.of(2022,03,01,9,23),h1,m1);
+
+        hobbyInfoRepository.save(hi1);
+
 
         System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
@@ -86,13 +93,16 @@ public class MakeTestData implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        makeMembers();
+        /*makeMembers();
 
         makeHobbies();
-        //makeHobbyInfos();
 
         System.out.println(hobbyService.getHobbies2());
         System.out.println(hobbyService.getHobby("Fodbold"));
+        */
+        makeHobbyInfos();
+
+
 
     }
 }

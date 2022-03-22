@@ -25,18 +25,33 @@ public class HobbyInfo {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss",shape = JsonFormat.Shape.STRING)
     LocalDateTime hobbyAdded;
 
-
     @ManyToOne
     Hobby hobbyObject;
 
     @ManyToOne
     Person hasHobbies;
 
-    public HobbyInfo(Hobby hobbyObject, Person hasHobbies){
+    public HobbyInfo(LocalDateTime date, Hobby hobbyObject, Person hasHobbies){
+        this.hobbyAdded=date;
         this.hasHobbies=hasHobbies;
         this.hobbyObject =hobbyObject;
-        hobbyObject.addHobbyInfos(this);
+        hobbyObject.addHobbyObject(this);
         hasHobbies.addHobby(this);
 
     }
+
+    /*   @ManyToOne
+    Car reservedCar;
+
+    @ManyToOne
+    Member reservedBy;
+
+    public Reservation(LocalDate date, Car reservedCar, Member reservedBy) {
+        this.reservationDate = date;
+        this.reservedCar = reservedCar;
+        this.reservedBy = reservedBy;
+        reservedCar.addResevertaion(this);
+        reservedBy.addResevertaion(this);
+
+    }*/
 }

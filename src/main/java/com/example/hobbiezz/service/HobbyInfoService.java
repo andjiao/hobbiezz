@@ -8,6 +8,7 @@ import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -42,8 +43,8 @@ public class HobbyInfoService {
 
 
     //Denne metode opretter en ny HobbyInfo, der forbinder en hobby med en person.
-    public HobbyInfo connectHobbyToPerson(Person person, Hobby hobby){
-        HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(hobby, person));
+    public HobbyInfo connectHobbyToPerson(LocalDateTime date,Hobby hobby, Person person){
+        HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(date,hobby, person));
 
         return newHobbyInfo;
     }

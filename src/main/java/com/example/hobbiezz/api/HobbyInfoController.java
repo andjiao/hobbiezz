@@ -18,10 +18,10 @@ public class HobbyInfoController {
     HobbyService hobbyService;
 
     //Nedenstående skal ændres til, at indput er PersonRequest og HobbyRequest output er HobbyInfoRequest
-    @PostMapping
+    /*@PostMapping
     public HobbyInfo addHobbyInfo(@RequestBody Person person, Hobby hobby) throws Exception {
         return hobbyInfoService.connectHobbyToPerson(person, hobby);
-    }
+    }*/
 
 
     @DeleteMapping("/{id}")

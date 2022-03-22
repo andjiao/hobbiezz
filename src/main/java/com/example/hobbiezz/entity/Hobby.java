@@ -13,40 +13,42 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
 //@AllArgsConstructor
 @NoArgsConstructor
 
 public class Hobby {
     @Id
     String name;
+    String category;
 
     String link;
-    String category;
     String inOut;
 
+    /*@OneToMany(mappedBy = "hobbyWithInfo")
+    private Set<HobbyInfo> hobbies = new HashSet<>();*/
 
     public Hobby(HobbyRequest body){
         this.name = body.getName();
+        this.category= body.getCategory();
         this.link = body.getLink();
-        this.category = body.getCategory();
         this.inOut = body.getInOut();
     }
 
-    public Hobby(String name, String link, String category, String inOut) {
+    public Hobby(String name, String category, String link, String inOut) {
         this.name = name;
+        this.category= category;
         this.link = link;
-        this.category = category;
         this.inOut = inOut;
     }
-    @OneToMany(mappedBy = "hobbyObject", fetch = FetchType.EAGER)
 
+    @OneToMany(mappedBy = "hobbyObject", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 
-    public void addHobbyInfos(HobbyInfo hi){
+    public void addHobbyObject(HobbyInfo hi){
         hobbyInfos.add(hi);
     }
+
 }

@@ -25,8 +25,8 @@ public class Address {
     String zipCode;
     String city;
 
-    /*@OneToMany(mappedBy = "connectedAddress", fetch = FetchType.EAGER)
-    private Set<Person> people = new HashSet<>();*/
+    @OneToMany(mappedBy = "connectedAddress", fetch = FetchType.EAGER)
+    private Set<Person> people = new HashSet<>();
 
 
     public Address(String street, String additionalInfo, String zipCode, String city) {
