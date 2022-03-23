@@ -44,7 +44,7 @@ class PersonControllerTest {
     public void setup() {
         personRepository.deleteAll();
         personOneId = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
-        personOneId = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
+        personTwoId = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
 
     }
 
