@@ -86,6 +86,7 @@ class HobbyInfoServiceTest {
     }
 
 
+    /* Id skal ikke gættes
     //Virker 23/3
     @Test
     void connectHobbyToPerson() {
@@ -102,6 +103,8 @@ class HobbyInfoServiceTest {
         assertEquals(hobbyTwo, newHobbyInfo.getHobbyObject());
 
     }
+
+     */
 
 
     //Metoden er ikke færdig
