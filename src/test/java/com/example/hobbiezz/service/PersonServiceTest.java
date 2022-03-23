@@ -63,12 +63,12 @@ class PersonServiceTest {
 
     }
 
-    //Virker 22/3
+    //Virker 23/3
     @Test
-    void testGetPeople2() {
-        List<Person> people = personService.getPeople2();
+    void testGetPeople() {
+        List<PersonResponse> people = personService.getPeople();
         assertEquals(2, people.size());
-        assertInstanceOf(Person.class, people.get(0));
+        assertInstanceOf(PersonResponse.class, people.get(0));
         assertEquals("Isabel@mail.dk", people.get(0).getEmail());
         assertNotEquals("Isabel@mail.dk", people.get(1).getEmail());
         assertThat(people, containsInAnyOrder(hasProperty("email", is("Isabel@mail.dk")),
@@ -104,14 +104,14 @@ class PersonServiceTest {
     }
 
 
-    //Virker 22/3
+    //Virker 23/3
     @Test
     void testDeletePerson() throws Exception {
-        List<Person> people = personService.getPeople2();
+        List<PersonResponse> people = personService.getPeople();
         assertEquals(2, people.size());
         personService.deletePerson(1);
 
-        people = personService.getPeople2();
+        people = personService.getPeople();
         assertEquals(1, people.size());
 
     }
