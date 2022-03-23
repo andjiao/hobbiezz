@@ -92,7 +92,7 @@ public class MakeTestData implements ApplicationRunner {
         hobbyRepository.save(h1);
 
         Person m1 = new Person
-                ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416");
+                ("amanda2@amanda.dk", "Amanda", "Amandasen", "70121416");
         memberRepository.save(m1);
 
         HobbyInfo hi1 = new HobbyInfo(LocalDateTime.of(2022,03,01,9,23),h1,m1);
@@ -132,12 +132,16 @@ public class MakeTestData implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        /*makeMembers();
+        makeMembers();
 
         makeHobbies();
 
         System.out.println(hobbyService.getHobbies2());
         System.out.println(hobbyService.getHobby("Fodbold"));
+ makeTestData_feature
+
+        makeHobbyInfos();
+
         */
         //makeHobbyInfos();
 
@@ -146,6 +150,7 @@ public class MakeTestData implements ApplicationRunner {
         getPerson();
 
 
+ main
 
 
 
