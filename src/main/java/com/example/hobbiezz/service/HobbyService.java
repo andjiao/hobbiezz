@@ -5,6 +5,7 @@ package com.example.hobbiezz.service;
 import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.error.Client4xxException;
 import com.example.hobbiezz.repository.HobbyRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,8 @@ public class HobbyService {
     }
 
 
-    public HobbyResponse getHobby(String name) throws Exception{
-        Hobby hobby= hobbyRepository.findById(name).orElseThrow(()-> new Exception("do not exist"));
+    public HobbyResponse getHobby(String name){
+        Hobby hobby= hobbyRepository.findById(name).orElseThrow(()-> new Client4xxException("do not exist"));
 
         return new HobbyResponse(hobby);
     }

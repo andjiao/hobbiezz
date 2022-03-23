@@ -115,7 +115,7 @@ public class MakeTestData implements ApplicationRunner {
         System.out.println("--------------makeAddress testdata kørt--------------");
     }
 
-    public void getPerson() throws Exception {
+    public void getPerson() {
         Person m1 = new Person
                 ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416");
         memberRepository.save(m1);

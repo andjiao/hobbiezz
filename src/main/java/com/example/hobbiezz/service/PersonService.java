@@ -3,6 +3,7 @@ package com.example.hobbiezz.service;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.error.Client4xxException;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,15 +38,24 @@ public class PersonService {
         return PersonResponse.getPersonEntities(people);
     }
 
-    public Person getPerson(int id) throws Exception {
-        Person person = personRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
-        return person;
+    public PersonResponse getPerson(int id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new Client4xxException("User not found"));
+        return new PersonResponse(person);
     }
+
+    /*
+    *  public CarResponse getCar(int id,boolean all) throws Exception {
+            //Car car = carRepository.findById(id).orElseThrow(()->new Exception("not found"));
+
+            Car car2 = carRepository.findById(id).orElseThrow(()->new Client4xxException("not found"));
+            return new CarResponse(car2, false);
+
+        }*/
 
     //Andrea
     //Til denne metode skal der huskes at lave en constructure i PersonResponse
-    public PersonResponse updatePerson (PersonRequest personToEdit, int personId) throws Exception {
-        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Exception("No person with provided ID found" + personId));
+    public PersonResponse updatePerson (PersonRequest personToEdit, int personId) {
+        Person personUpdated = personRepository.findById(personId).orElseThrow(()-> new Client4xxException("No person with provided ID found" + personId));
         personUpdated.setEmail(personToEdit.getEmail());
         personUpdated.setFirstName(personToEdit.getFirstName());
         personUpdated.setLastName(personToEdit.getLastName());
