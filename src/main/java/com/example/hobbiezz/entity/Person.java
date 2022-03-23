@@ -74,7 +74,7 @@ public class Person {
     }
 
 
-    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 

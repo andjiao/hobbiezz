@@ -31,14 +31,13 @@ public class PersonService {
     }
 
 
-/*
     //Omskriv med stream
     public List<PersonResponse> getPeople(){
-        List<Person> persons = personRepository.findAll();
-        return PersonResponse.getPersonEntities(persons);
+        List<Person> people = personRepository.findAll();
+        return PersonResponse.getPersonEntities(people);
     }
 
- */
+
 
     public List<Person> getPeople2(){
         List<Person> persons = personRepository.findAll();
