@@ -37,7 +37,13 @@ public class HobbyInfo {
         this.hobbyObject =hobbyObject;
         hobbyObject.addHobbyObject(this);
         hasHobbies.addHobby(this);
+    }
 
+    public HobbyInfo(Hobby hobbyObject, Person hasHobbies){
+        this.hasHobbies=hasHobbies;
+        this.hobbyObject =hobbyObject;
+        hobbyObject.addHobbyObject(this);
+        hasHobbies.addHobby(this);
     }
 
     /*   @ManyToOne
