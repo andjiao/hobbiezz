@@ -2,7 +2,10 @@ package com.example.hobbiezz.service;
 
 import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.repository.AddressRepository;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.HobbyRepository;
+import com.example.hobbiezz.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,9 +25,13 @@ class HobbyServiceTest {
 
     HobbyService hobbyService;
 
+    @Autowired
+    HobbyInfoRepository hobbyInfoRepository;
+
 
     @BeforeAll
-    static void setup(@Autowired HobbyRepository hobbyRepository) {
+    static void setup(@Autowired HobbyRepository hobbyRepository, @Autowired HobbyInfoRepository hobbyInfoRepository) {
+        hobbyInfoRepository.deleteAll();
         hobbyRepository.deleteAll();
         Hobby hobbyOne = hobbyRepository.save(new Hobby("Name1", "Category1", "Link1.dk", "outside"));
         Hobby hobbyTwo = hobbyRepository.save(new Hobby("Name2", "Category2", "Link2.dk", "inside"));
