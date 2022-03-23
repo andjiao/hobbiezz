@@ -48,7 +48,7 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/{id}")
-    public PersonResponse getPerson (@PathVariable int id) throws Exception {
+    public PersonResponse getPerson (@PathVariable int id) {
         return personService.getPerson(id);
     }
 

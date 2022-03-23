@@ -4,6 +4,7 @@ import com.example.hobbiezz.dto.HobbyInfoResponse;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.error.Client4xxException;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,8 @@ public class HobbyInfoService {
      */
 
 
-    public HobbyInfoResponse getHobbyInfo(int id) throws Exception {
-        return new HobbyInfoResponse(hobbyInfoRepo.findById(id).orElseThrow(()-> new Exception("Could not find Hobby")));
+    public HobbyInfoResponse getHobbyInfo(int id) {
+        return new HobbyInfoResponse(hobbyInfoRepo.findById(id).orElseThrow(()-> new Client4xxException("Could not find Hobby")));
     }
 
 
