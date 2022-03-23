@@ -1,11 +1,17 @@
 package com.example.hobbiezz.configuration;
 
+import com.example.hobbiezz.dto.AddressRequest;
+import com.example.hobbiezz.dto.AddressResponse;
+import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.service.AddressService;
 import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.HobbyService;
 import com.example.hobbiezz.service.PersonService;
@@ -15,6 +21,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @Profile("!test")
@@ -26,16 +33,22 @@ public class MakeTestData implements ApplicationRunner {
     HobbyRepository hobbyRepository;
     HobbyService hobbyService;
     HobbyInfoRepository hobbyInfoRepository;
+    AddressRepository addressRepository;
+    AddressService addressService;
+
 
     public MakeTestData(PersonRepository memberRepository, PersonService personService,
                         HobbyInfoService hobbyInfoService, HobbyRepository hobbyRepository,
-                        HobbyService hobbyService, HobbyInfoRepository hobbyInfoRepository) {
+                        HobbyService hobbyService, HobbyInfoRepository hobbyInfoRepository, AddressRepository addressRepository, AddressService addressService) {
         this.memberRepository = memberRepository;
         this.personService = personService;
         this.hobbyInfoService = hobbyInfoService;
         this.hobbyRepository = hobbyRepository;
         this.hobbyService = hobbyService;
         this.hobbyInfoRepository = hobbyInfoRepository;
+
+        this.addressService=addressService;
+        this.addressRepository=addressRepository;
     }
 
 
@@ -90,6 +103,30 @@ public class MakeTestData implements ApplicationRunner {
         System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
 
+    public void makeAddress() throws Exception {
+        //Ja den gemmer data
+        Address a1 = new Address("Amagergaade", "23,3 th", "2300","København");
+        addressRepository.save(a1);
+
+        //ja, den kan finde en address ud fra dets id
+        AddressResponse ar = addressService.getAddressById(1);
+        System.out.println(ar);
+
+        System.out.println("--------------makeAddress testdata kørt--------------");
+    }
+
+    public void getPerson() throws Exception {
+        Person m1 = new Person
+                ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416");
+        memberRepository.save(m1);
+
+        PersonResponse p1 = personService.getPerson(1);
+
+        System.out.println(p1);
+
+        System.out.println("--------------getPerson testdata kørt--------------");
+    }
+
 
 
     @Override
@@ -101,8 +138,19 @@ public class MakeTestData implements ApplicationRunner {
 
         System.out.println(hobbyService.getHobbies2());
         System.out.println(hobbyService.getHobby("Fodbold"));
+ makeTestData_feature
 
         makeHobbyInfos();
+
+        */
+        //makeHobbyInfos();
+
+        //makeAddress();
+
+        getPerson();
+
+
+ main
 
 
 

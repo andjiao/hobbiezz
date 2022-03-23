@@ -22,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/*
 @DataJpaTest
 class HobbyInfoServiceTest {
     @Autowired
@@ -119,6 +120,7 @@ class HobbyInfoServiceTest {
         //HobbyInfo slettes
         hobbyInfoService.deleteHobbyInfo(hobbyInfoOneId);
 
+
         //Efter hobbyInfo slettes
         Exception exception = assertThrows(Exception.class, () -> {
             hobbyInfoService.getHobbyInfo(hobbyInfoOneId);
@@ -131,3 +133,4 @@ class HobbyInfoServiceTest {
     }
 
 }
+*/
