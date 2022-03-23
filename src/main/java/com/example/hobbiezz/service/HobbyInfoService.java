@@ -43,8 +43,8 @@ public class HobbyInfoService {
 
 
     //Denne metode opretter en ny HobbyInfo, der forbinder en hobby med en person.
-    public HobbyInfo connectHobbyToPerson(LocalDateTime date,Hobby hobby, Person person){
-        HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(date,hobby, person));
+    public HobbyInfo connectHobbyToPerson(Hobby hobby, Person person){
+        HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(hobby, person));
 
         return newHobbyInfo;
     }
