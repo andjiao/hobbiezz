@@ -37,13 +37,6 @@ public class PersonService {
         return PersonResponse.getPersonEntities(people);
     }
 
-
-
-    public List<Person> getPeople2(){
-        List<Person> persons = personRepository.findAll();
-        return persons;
-    }
-
     public Person getPerson(int id) throws Exception {
         Person person = personRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
         return person;
