@@ -41,8 +41,8 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/people")
-    public List<Person> getPeople (){
-        return personService.getPeople2();
+    public List<PersonResponse> getPeople (){
+        return personService.getPeople();
     }
 
 

@@ -39,12 +39,12 @@ public class PersonResponse {
     }
 
 
-/*
     public static List<PersonResponse> getPersonEntities (List<Person> persons){
-        return persons.stream().map(person -> new PersonResponse()).collect(Collectors.toList());
+        return persons.stream().map(person -> new PersonResponse(person)).collect(Collectors.toList());
+
     }
 
- */
+
 
 
 }
