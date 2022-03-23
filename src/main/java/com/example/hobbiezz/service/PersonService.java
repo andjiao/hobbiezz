@@ -37,9 +37,9 @@ public class PersonService {
         return PersonResponse.getPersonEntities(people);
     }
 
-    public Person getPerson(int id) throws Exception {
+    public PersonResponse getPerson(int id) throws Exception {
         Person person = personRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
-        return person;
+        return new PersonResponse(person);
     }
 
     //Andrea
