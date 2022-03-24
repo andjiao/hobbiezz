@@ -61,18 +61,12 @@ public class PersonController {
     }
 
 
-    //Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
+    /*//Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
     @GetMapping("/personalhobbies/{id}")
     public List<Hobby> getPersonsHobbies (@PathVariable int id){
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
-        List<Hobby> hobbies = null;
 
-        for (HobbyInfo hobbyInfo: hobbyInfos) {
-            hobbies.add(hobbyRepository.findHobbyByHobbyInfos(hobbyInfo));
-        }
-
-        return hobbies;
-    }
+        return hobbyInfoService.getPersonalHobbyList(id);
+    }*/
 
 
 

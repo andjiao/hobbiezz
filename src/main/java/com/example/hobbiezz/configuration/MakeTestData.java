@@ -132,6 +132,7 @@ public class MakeTestData implements ApplicationRunner {
                 (LocalDateTime.of(2022,03,10,9,23),h3,p5));
 
 
+
     }
 
 
@@ -186,6 +187,23 @@ public class MakeTestData implements ApplicationRunner {
         System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
 
+    public void getPersonalHobbies(){
+        Hobby h1 = new Hobby
+                ("Fodbold", "fodbold.dk", "Kategori", "out");
+        hobbyRepository.save(h1);
+
+        Person m1 = new Person
+                ("amanda2@amanda.dk", "Amanda", "Amandasen", "70121416");
+        personRepository.save(m1);
+
+        HobbyInfo hi1 = new HobbyInfo(LocalDateTime.of(2022,03,01,9,23),h1,m1);
+
+        hobbyInfoRepository.save(hi1);
+
+
+
+    }
+
 
 
     @Override
@@ -204,6 +222,8 @@ public class MakeTestData implements ApplicationRunner {
          */
 
         makeTestData();
+
+        //getPersonalHobbies();
 
 
 

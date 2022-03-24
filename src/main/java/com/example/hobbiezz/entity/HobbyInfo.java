@@ -1,10 +1,7 @@
 package com.example.hobbiezz.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class HobbyInfo {
 
     @Id
@@ -45,6 +43,7 @@ public class HobbyInfo {
         hobbyObject.addHobbyObject(this);
         hasHobbies.addHobby(this);
     }
+
 
     /*   @ManyToOne
     Car reservedCar;

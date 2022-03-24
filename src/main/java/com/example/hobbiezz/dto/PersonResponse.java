@@ -1,14 +1,18 @@
 package com.example.hobbiezz.dto;
 
 import com.example.hobbiezz.entity.Person;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonResponse {
     int id;
     String email;

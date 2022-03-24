@@ -3,10 +3,7 @@ package com.example.hobbiezz.entity;
 import com.example.hobbiezz.dto.HobbyRequest;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +12,10 @@ import java.util.Set;
 @Setter
 //@AllArgsConstructor
 @NoArgsConstructor
-
+@ToString
 public class Hobby {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String name;
     String category;
 

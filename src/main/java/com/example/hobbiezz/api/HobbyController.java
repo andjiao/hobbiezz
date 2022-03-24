@@ -20,8 +20,8 @@ public class HobbyController {
 
     //Metoden virker for sig selv, men controlleren virker ikke 21/3
     @GetMapping("/all")
-    public List<Hobby> getHobbies (){
-        return hobbyService.getHobbies2();
+    public List<HobbyResponse> getHobbies (){
+        return hobbyService.getHobbies();
     }
 
     //Metoden virker for sig selv, men controlleren virker ikke 21/3

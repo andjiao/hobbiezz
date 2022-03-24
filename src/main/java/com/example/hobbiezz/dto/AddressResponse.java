@@ -1,11 +1,15 @@
 package com.example.hobbiezz.dto;
 
 import com.example.hobbiezz.entity.Address;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressResponse {
 
     String street;

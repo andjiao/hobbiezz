@@ -1,10 +1,7 @@
 package com.example.hobbiezz.entity;
 
 import com.example.hobbiezz.dto.AddressRequest;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

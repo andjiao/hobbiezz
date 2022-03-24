@@ -33,4 +33,6 @@ public class HobbyResponse {
         return hobbies.stream().map(hobby -> new HobbyResponse(hobby)).collect(Collectors.toList());
     }
 
+
+
 }

@@ -10,20 +10,46 @@ import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class HobbyInfoService {
 
-    HobbyInfoRepository hobbyInfoRepo;
+    private static HobbyInfoRepository hobbyInfoRepo;
+
+    HobbyInfoRepository hobbyInfoRepository;
     //HobbyRepo hobbyRepo;
     PersonRepository personRepository;
     Person person;
+    private Object Hobby;
 
     public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, PersonRepository personRepository){
         this.hobbyInfoRepo= hobbyInfoRepo;
         this.personRepository=personRepository;
     }
+
+   /* public List<Hobby> getPersonalHobbyList(int id){
+
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHasHobbies_Id(id);
+
+        Hobby hobby = new Hobby();
+
+        while(hobbyInfos.contains(hobby))
+        {
+            HobbyInfo hobbyInfo = new HobbyInfo();
+
+            hobbyInfos.contains(hobby.getName());
+            hobbyInfos.contains(hobby.getCategory());
+            hobbyInfos.contains(hobby.getLink());
+            hobbyInfos.contains(hobby.getInOut());
+
+            hobbyInfos.add(hobbyInfo);
+        }
+
+        return hobbyInfoRepo.save(new HobbyInfo(hobby));
+
+    }*/
 
     /*
     public List<HobbyInfo> getPersonalHobbyList(int id){

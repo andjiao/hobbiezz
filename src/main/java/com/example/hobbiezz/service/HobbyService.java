@@ -26,6 +26,7 @@ public class HobbyService {
         return hobbyResponse.getHobbiesEntities(hobbies);
     }
 
+
     public List<Hobby> getHobbies2(){
         List<Hobby> hobbies= hobbyRepository.findAll();
         return hobbies;
