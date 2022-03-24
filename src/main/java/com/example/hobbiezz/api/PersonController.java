@@ -1,12 +1,18 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -14,16 +20,19 @@ import java.util.List;
 @RestController
 
 
-@RequestMapping("api/krak")
+@RequestMapping("api/person")
 public class PersonController {
     PersonService personService;
     PersonRepository personRepository;
+    HobbyInfoRepository hobbyInfoRepository;
+    HobbyRepository hobbyRepository;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, PersonRepository personRepository, HobbyInfoRepository hobbyInfoRepository, HobbyRepository hobbyRepository) {
         this.personService = personService;
+        this.personRepository = personRepository;
+        this.hobbyInfoRepository = hobbyInfoRepository;
+        this.hobbyRepository = hobbyRepository;
     }
-    //HobbyInfoRepo hobbyInfoRepo;
-    //HobbyRepo hobbyRepo;
 
 
     //Virker 21/3
@@ -52,21 +61,23 @@ public class PersonController {
         return personService.getPerson(id);
     }
 
-    /*
+
     //Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
     @GetMapping("/personalhobbies/{id}")
-    public List<Hobby> getPersonsHobbies (@PathVariable int id){
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHasHobbies_Id(id);
-        List<Hobby> hobbies = null;
+    public List<HobbyResponse> getPersonsHobbies (@PathVariable int id){
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
+        List<Hobby> hobbies = new ArrayList();
 
         for (HobbyInfo hobbyInfo: hobbyInfos) {
-            hobbies.add(hobbyRepo.findHobbyByHobbyInfos(hobbyInfo));
+            hobbies.add(hobbyRepository.findHobbyByHobbyInfos(hobbyInfo));
         }
 
-        return hobbies;
-    }
+        List<HobbyResponse> hobbieResponses = new ArrayList<>();
 
-     */
+        hobbies.forEach((hobby) -> hobbieResponses.add(new HobbyResponse(hobby)));
+
+        return hobbieResponses;
+    }
 
     /*
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
