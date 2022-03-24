@@ -2,8 +2,13 @@ package com.example.hobbiezz.api;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +23,9 @@ import java.util.List;
 public class PersonController {
     PersonService personService;
     PersonRepository personRepository;
+    HobbyInfoRepository hobbyInfoRepository;
+    HobbyInfoService hobbyInfoService;
+    HobbyRepository hobbyRepository;
 
     public PersonController(PersonService personService) {
         this.personService = personService;
@@ -48,25 +56,25 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/{id}")
-    public PersonResponse getPerson (@PathVariable int id) {
+    public PersonResponse getPerson (@PathVariable int id) throws Exception {
         return personService.getPerson(id);
     }
 
-    /*
+
     //Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
     @GetMapping("/personalhobbies/{id}")
     public List<Hobby> getPersonsHobbies (@PathVariable int id){
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHasHobbies_Id(id);
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
         List<Hobby> hobbies = null;
 
         for (HobbyInfo hobbyInfo: hobbyInfos) {
-            hobbies.add(hobbyRepo.findHobbyByHobbyInfos(hobbyInfo));
+            hobbies.add(hobbyRepository.findHobbyByHobbyInfos(hobbyInfo));
         }
 
         return hobbies;
     }
 
-     */
+
 
     /*
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
