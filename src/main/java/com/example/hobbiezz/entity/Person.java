@@ -17,10 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private String email;
     //@Column(length = 320)
