@@ -22,7 +22,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/*
 @DataJpaTest
 class HobbyInfoServiceTest {
     @Autowired
@@ -87,6 +86,7 @@ class HobbyInfoServiceTest {
     }
 
 
+    /* Id skal ikke gættes
     //Virker 23/3
     @Test
     void connectHobbyToPerson() {
@@ -104,6 +104,8 @@ class HobbyInfoServiceTest {
 
     }
 
+     */
+
 
     //Metoden er ikke færdig
     @Test
@@ -120,7 +122,6 @@ class HobbyInfoServiceTest {
         //HobbyInfo slettes
         hobbyInfoService.deleteHobbyInfo(hobbyInfoOneId);
 
-
         //Efter hobbyInfo slettes
         Exception exception = assertThrows(Exception.class, () -> {
             hobbyInfoService.getHobbyInfo(hobbyInfoOneId);
@@ -133,4 +134,3 @@ class HobbyInfoServiceTest {
     }
 
 }
-*/
