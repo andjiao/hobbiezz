@@ -2,8 +2,6 @@ package com.example.hobbiezz.api;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.entity.Person;
-import com.example.hobbiezz.repository.AddressRepository;
-import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,12 +34,6 @@ class PersonControllerTest {
     @Autowired
     PersonRepository personRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
-
-    @Autowired
-    HobbyInfoRepository hobbyInfoRepository;
-
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -50,13 +42,9 @@ class PersonControllerTest {
 
     @BeforeEach
     public void setup() {
-        hobbyInfoRepository.deleteAll();
-        addressRepository.deleteAll();
         personRepository.deleteAll();
-        personOneId = personRepository.save
-                (new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
-        personTwoId = personRepository.save
-                (new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
+        personOneId = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
+        personTwoId = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
 
     }
 
@@ -84,7 +72,7 @@ class PersonControllerTest {
     @Test
     public void testUpdatePerson() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
-                        .put("/api/krak/{id}", personOneId)
+                        .put("/api/krak/{id}", 1)
                         .content(objectMapper.writeValueAsString(new PersonRequest("Ændret@mail.dk", "Ændret", "Ændret", "911")))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -119,11 +107,11 @@ class PersonControllerTest {
     @Test
     void getPerson() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api/krak/{id}", personOneId)
+                        .get("/api/krak/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                         .andDo(print())
                         .andExpect(status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(personOneId));
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
 
     }
 
@@ -132,7 +120,7 @@ class PersonControllerTest {
     @Test
     void deleteMember() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/krak/{id}", personOneId)
+                        .delete("/api/krak/{id}", "1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk());

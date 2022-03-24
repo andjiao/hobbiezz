@@ -3,8 +3,6 @@ package com.example.hobbiezz.service;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
-import com.example.hobbiezz.repository.AddressRepository;
-import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,21 +21,12 @@ class PersonServiceTest {
     @Autowired
     PersonRepository personRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
-
-    @Autowired
-    HobbyInfoRepository hobbyInfoRepository;
-
     PersonService personService;
 
     static int person1Id, person2Id;
 
     @BeforeAll
-    static void setup(@Autowired PersonRepository personRepository, @Autowired AddressRepository addressRepository,
-                      @Autowired HobbyInfoRepository hobbyInfoRepository) {
-        addressRepository.deleteAll();
-        hobbyInfoRepository.deleteAll();
+    static void setup(@Autowired PersonRepository personRepository) {
         personRepository.deleteAll();
         person1Id = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
         person2Id = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
@@ -74,7 +63,6 @@ class PersonServiceTest {
 
     }
 
-
     //Virker 23/3
     @Test
     void testGetPeople() {
@@ -91,7 +79,7 @@ class PersonServiceTest {
     //Virker 22/3
     @Test
     void testGetPerson() throws Exception {
-        Person testPerson = personService.getPerson(person1Id);
+        Person testPerson = personService.getPerson(1);
         assertEquals("Isabel@mail.dk", testPerson.getEmail());
         assertNotEquals("Andrea@mail.dk", testPerson.getEmail());
     }
@@ -105,11 +93,11 @@ class PersonServiceTest {
                 ("ændret@mail.dk", "ændret", "ændret", "ændret");
 
         //Metoden kaldes
-        personService.updatePerson(updatedPersonRequest, person1Id);
+        personService.updatePerson(updatedPersonRequest, 1);
 
 
-        assertEquals("ændret@mail.dk", personService.getPerson(person1Id).getEmail());
-        assertNotEquals("Isabel@mail.dk", personService.getPerson(person1Id).getEmail());
+        assertEquals("ændret@mail.dk", personService.getPerson(1).getEmail());
+        assertNotEquals("Isabel@mail.dk", personService.getPerson(1).getEmail());
 
 
 
@@ -120,12 +108,11 @@ class PersonServiceTest {
     @Test
     void testDeletePerson() throws Exception {
         List<PersonResponse> people = personService.getPeople();
-        int sizeBeforeDelete = people.size();
-        //assertEquals(2, people.size());
-        personService.deletePerson(person1Id);
+        assertEquals(2, people.size());
+        personService.deletePerson(1);
 
         people = personService.getPeople();
-        assertEquals(sizeBeforeDelete-1, people.size());
+        assertEquals(1, people.size());
 
     }
 

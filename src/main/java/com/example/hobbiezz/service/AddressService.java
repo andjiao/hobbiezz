@@ -24,20 +24,18 @@ public class AddressService {
         this.addressRepository=addressRepository;
     }
 
-/*
+
+    //virker
     public AddressResponse addAddress(AddressRequest body){
-        if (addressRepository.addressExists(body)) {
-            System.out.println("Address is already in database");
-            return new AddressResponse(body);
-        }
+
         Address addressNew = addressRepository.save(new Address(body));
         return new AddressResponse(addressNew);
     }
 
- */
 
+    //Virker
     public AddressResponse getAddressById(int id) throws Exception {
-        Address address = addressRepository.findById(id).orElseThrow(()->new Exception(
+        Address address = addressRepository.findById(id).orElseThrow(()-> new Exception(
                 "No address with this id exists"));
         return new AddressResponse(address);
     }
