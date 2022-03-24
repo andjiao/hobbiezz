@@ -18,8 +18,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-/*
 @DataJpaTest
 class HobbyServiceTest {
     @Autowired
@@ -80,4 +78,4 @@ class HobbyServiceTest {
         assertNotEquals("Category2", testHobby.getCategory());
     }
 
-}*/
+}
