@@ -3,10 +3,7 @@ package com.example.hobbiezz.entity;
 import com.example.hobbiezz.dto.HobbyRequest;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +38,7 @@ public class Hobby {
         this.inOut = inOut;
     }
 
-    @OneToMany(mappedBy = "hobbyObject", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hobbyObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
 

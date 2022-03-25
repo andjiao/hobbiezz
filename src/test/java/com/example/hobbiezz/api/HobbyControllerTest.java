@@ -61,7 +61,7 @@ class HobbyControllerTest {
 
     }
 
-    /*
+
     //Virker ikke 22/3
     @Test
     void testGetHobbies() throws Exception {
@@ -99,5 +99,4 @@ class HobbyControllerTest {
 
     }
 
-     */
 }

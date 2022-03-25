@@ -1,5 +1,7 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.PersonRequest;
+import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
@@ -8,6 +10,7 @@ import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import com.example.hobbiezz.service.HobbyInfoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.BDDAssertions.and;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,10 +59,12 @@ class HobbyInfoControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    static int hobbyInfoOneId, hobbyInfoTwoId;
-    static int personId;
+    static int hobbyInfoOneId, hobbyInfoTwoId, person1Id, person2Id;
+    static String hobby2Name;
+    static Person p1, p2;
+    static Hobby h1, h2;
 
-    /*
+/*
     public HobbyInfoControllerTest(HobbyInfoRepository hobbyInfoRepository, HobbyRepository hobbyRepository,
     PersonRepository personRepository) {
         this.hobbyInfoRepository = hobbyInfoRepository;
@@ -66,37 +72,81 @@ class HobbyInfoControllerTest {
         this.personRepository = personRepository;
     }
 
-     */
+ */
+
+
 
 
     @BeforeEach
-    public void setup() throws Exception {
-        addressRepository.deleteAll();
-        hobbyInfoRepository.deleteAll();
+    public void setup() {
         hobbyRepository.deleteAll();
         personRepository.deleteAll();
+        addressRepository.deleteAll();
+        hobbyInfoRepository.deleteAll();
 
-        //Person
-        Person personOne = personRepository.save
-                (new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911"));
-        Person personTwo = personRepository.save
-                (new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888"));
+        //MakeAdresses
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+
+        Address a2 = new Address
+                ("GadeVænget 2", "2. tv", "2200", "København");
+        addressRepository.save(a2);
 
 
-        //Hobby
-        Hobby hobbyOne = hobbyRepository.save
-                (new Hobby("Name", "Category", "Link.dk", "out"));
 
-        //Hobbyinfo
+        //MakePeople
+        p1 = personRepository.save
+                (new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911", a1));
+        person1Id = p1.getId();
 
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime later = LocalDateTime.now().minusDays(100);
-        hobbyInfoOneId = hobbyInfoRepository.save(new HobbyInfo(now, hobbyOne, personOne)).getId();
-        hobbyInfoOneId = hobbyInfoRepository.save(new HobbyInfo(later, hobbyOne, personTwo)).getId();
-        System.out.println("-----------Setup completed-----------");
+        p2 = personRepository.save
+                (new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888", a2));
+        person2Id = p2.getId();
+
+
+        //Makehobbies
+
+        h1 = hobbyRepository.save(new Hobby
+                ("Fodbold", "category", "fodbold.dk", "out"));
+
+        h2 = hobbyRepository.save(new Hobby
+                ("Håndbold", "category", "håndbold.dk", "out"));
+
+        hobby2Name = h2.getName();
+
+
+        Hobby h3 = hobbyRepository.save(new Hobby
+                ("LARP", "category", "LARP.dk", "out"));
+
+        Hobby h4 = hobbyRepository.save(new Hobby
+                ("Strikning", "category", "strik.dk", "out"));
+
+        Hobby h5 = hobbyRepository.save(new Hobby
+                ("Kattepasning", "category", "kat.dk", "out"));
+
+
+        //MakeHobbyInfos
+        HobbyInfo hi1 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,01,9,23),h1,p1));
+        hobbyInfoOneId = hi1.getId();
+
+        HobbyInfo hi2 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,02,9,23),h5,p1));
+        hobbyInfoTwoId = hi2.getId();
+
+        HobbyInfo hi3 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,03,9,23),h3,p2));
+
+        HobbyInfo hi4 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,04,9,23),h1,p2));
+
+        HobbyInfo hi5 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,05,9,23),h4,p1));
+
     }
 
-    /*
+/*
     //Virker ikke 22/3
     @Test
     void testDeleteHobbyInfo() throws Exception {
@@ -107,11 +157,15 @@ class HobbyInfoControllerTest {
                         .andExpect(status().isOk());
 
         //Testing
-        assertEquals(1, hobbyInfoRepository.count());
+        assertEquals(4, hobbyInfoRepository.count());
 
     }
 
+ */
 
+
+
+/*
     @Test
     void testGetHObby() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
@@ -121,21 +175,45 @@ class HobbyInfoControllerTest {
                         .andExpect(status().isOk())
                         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId));
     }
+*/
 
 
-
-    //Virker ikke
+    //Virker 25/3
     @Test
-    void getHobbyInfo() throws Exception {
-
+    void testGetHobbyInfo() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
                         .get("/api/personalHobbies/{id}", hobbyInfoOneId)
                         .accept(MediaType.APPLICATION_JSON))
-                        .andDo(print())
-                        .andExpect(status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId));
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.personId").value(p1.getId()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyName").value(h1.getName()));
 
     }
 
-     */
+
+//Den virker 25/3
+    @Test
+    void addHobbyInfo() throws Exception {
+       mockMvc.perform(MockMvcRequestBuilders
+                       .put("/api/personalHobbies/{personId}/{hobbyName}", person2Id, hobby2Name)
+                        .contentType("application/json")
+                        .accept("application/json"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyName").value(hobby2Name))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.personId").value(person2Id))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.personName").
+                       value(p2.getFirstName() + " " + p2.getLastName()));
+
+
+
+        //Testing
+        assertEquals(6, hobbyInfoRepository.count());
+    }
+
+
 }

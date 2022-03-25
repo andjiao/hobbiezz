@@ -2,6 +2,7 @@ package com.example.hobbiezz.entity;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,7 +79,7 @@ public class Person {
     }
 
 
-    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 

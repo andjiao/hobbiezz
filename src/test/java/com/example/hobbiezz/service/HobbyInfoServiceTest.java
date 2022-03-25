@@ -64,7 +64,7 @@ class HobbyInfoServiceTest {
 
     @BeforeEach
     public void setupService() {
-        hobbyInfoService = new HobbyInfoService(hobbyInfoRepository, personRepository);
+        hobbyInfoService = new HobbyInfoService(hobbyInfoRepository, hobbyRepository, personRepository);
     }
 
     //Virker 23/3
