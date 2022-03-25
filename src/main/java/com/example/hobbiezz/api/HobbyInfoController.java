@@ -1,11 +1,13 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.HobbyInfoRequest;
 import com.example.hobbiezz.dto.HobbyInfoResponse;
 import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.HobbyService;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +28,15 @@ public class HobbyInfoController {
         this.hobbyService = hobbyService;
     }
 
-    //Nedenstående er ikke testet
-    @PostMapping
-    public HobbyInfo addHobbyInfo(@RequestBody Person person, @RequestBody Hobby hobby) throws Exception {
-        return hobbyInfoService.connectHobbyToPerson(hobby, person);
+
+    //Den virker 25/3
+    @PutMapping("/{personId}/{hobbyName}")
+    public HobbyInfoResponse addHobbyInfo(@PathVariable int personId, @PathVariable String hobbyName) throws Exception {
+        HobbyInfoResponse info = hobbyInfoService.connectHobbyToPerson(hobbyName, personId);
+
+        return info;
     }
+
 
     //Virker ikke 25/3
     @DeleteMapping("/{id}")
