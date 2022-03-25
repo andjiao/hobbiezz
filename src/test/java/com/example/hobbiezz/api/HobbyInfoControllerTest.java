@@ -204,8 +204,11 @@ class HobbyInfoControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyName").value(h2.getName()))
-               .andExpect(MockMvcResultMatchers.jsonPath("$.personId").value(p2.getId()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyName").value(hobby2Name))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.personId").value(person2Id))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.personName").
+                       value(p2.getFirstName() + " " + p2.getLastName()));
+
 
 
         //Testing
