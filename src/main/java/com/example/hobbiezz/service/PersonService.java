@@ -4,7 +4,6 @@ import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.PersonRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class PersonService {
     public PersonResponse addPerson(PersonRequest body) throws Exception {
 
         //Kun, hvis e-mail skal være unik
-        if (personRepository.emailExist(body.getEmail())) {
+        if (personRepository.emailExists(body.getEmail())) {
             throw new Exception("Provided email is taken");
         }
         Person personNew = personRepository.save(new Person(body));
