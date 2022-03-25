@@ -29,8 +29,6 @@ class PersonRepositoryTest {
     @Autowired
     AddressRepository addressRepository;
 
-    HobbyInfoService hobbyInfoService;
-
 
     static int hobbyInfoOneId, hobbyInfoTwoId, person1Id, person2Id;
     static String hobby2Name;
