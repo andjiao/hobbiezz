@@ -20,7 +20,8 @@ public class HobbyInfoService {
     PersonRepository personRepository;
     Person person;
 
-    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, HobbyRepository hobbyRepository, PersonRepository personRepository) {
+    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, HobbyRepository hobbyRepository,
+                            PersonRepository personRepository) {
         this.hobbyInfoRepo = hobbyInfoRepo;
         this.hobbyRepository = hobbyRepository;
         this.personRepository = personRepository;

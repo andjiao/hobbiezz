@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -48,4 +49,16 @@ public class Hobby {
         hobbyInfos.add(hi);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hobby)) return false;
+        Hobby hobby = (Hobby) o;
+        return Objects.equals(getName(), hobby.getName()) && Objects.equals(getCategory(), hobby.getCategory()) && Objects.equals(getLink(), hobby.getLink()) && Objects.equals(getInOut(), hobby.getInOut());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getCategory(), getLink(), getInOut());
+    }
 }
