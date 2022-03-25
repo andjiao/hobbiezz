@@ -26,13 +26,13 @@ public class HobbyInfoController {
         this.hobbyService = hobbyService;
     }
 
-    //Nedenstående skal ændres til, at indput er PersonRequest og HobbyRequest output er HobbyInfoRequest
+    //Nedenstående er ikke testet
     @PostMapping
-    public HobbyInfo addHobbyInfo(@RequestBody Person person, Hobby hobby) throws Exception {
+    public HobbyInfo addHobbyInfo(@RequestBody Person person, @RequestBody Hobby hobby) throws Exception {
         return hobbyInfoService.connectHobbyToPerson(hobby, person);
     }
 
-
+    //Virker ikke 25/3
     @DeleteMapping("/{id}")
     public void deleteHobbyInfo(@PathVariable int id) {
         hobbyInfoService.deleteHobbyInfo(id);

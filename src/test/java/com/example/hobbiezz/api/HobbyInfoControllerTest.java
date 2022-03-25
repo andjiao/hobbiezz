@@ -60,8 +60,8 @@ class HobbyInfoControllerTest {
     private ObjectMapper objectMapper;
 
     static int hobbyInfoOneId, hobbyInfoTwoId, personId;
-    static Person p1;
-    static Hobby h1;
+    static Person p1, p2;
+    static Hobby h1, h2;
 
 /*
     public HobbyInfoControllerTest(HobbyInfoRepository hobbyInfoRepository, HobbyRepository hobbyRepository,
@@ -74,7 +74,7 @@ class HobbyInfoControllerTest {
  */
 
 
-/*
+
 
     @BeforeEach
     public void setup() {
@@ -99,7 +99,7 @@ class HobbyInfoControllerTest {
                 (new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911", a1));
         personId = p1.getId();
 
-        Person p2 = personRepository.save
+        p2 = personRepository.save
                 (new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888", a2));
 
 
@@ -108,7 +108,7 @@ class HobbyInfoControllerTest {
         h1 = hobbyRepository.save(new Hobby
                 ("Fodbold", "category", "fodbold.dk", "out"));
 
-        Hobby h2 = hobbyRepository.save(new Hobby
+        h2 = hobbyRepository.save(new Hobby
                 ("Håndbold", "category", "håndbold.dk", "out"));
 
         Hobby h3 = hobbyRepository.save(new Hobby
@@ -141,9 +141,7 @@ class HobbyInfoControllerTest {
 
     }
 
- */
 
-/*
     //Virker ikke 22/3
     @Test
     void testDeleteHobbyInfo() throws Exception {
@@ -154,11 +152,11 @@ class HobbyInfoControllerTest {
                         .andExpect(status().isOk());
 
         //Testing
-        assertEquals(1, hobbyInfoRepository.count());
+        assertEquals(4, hobbyInfoRepository.count());
 
     }
 
- */
+
 
 /*
     @Test
@@ -170,23 +168,10 @@ class HobbyInfoControllerTest {
                         .andExpect(status().isOk())
                         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId));
     }
+*/
 
 
-
-    //Virker ikke
-    @Test
-    void getHobbyInfo() throws Exception {
-
-        mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api/personalHobbies/{id}", hobbyInfoOneId)
-                        .accept(MediaType.APPLICATION_JSON))
-                        .andDo(print())
-                        .andExpect(status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId));
-
-    }
-
-
+    //Virker 25/3
     @Test
     void testGetHobbyInfo() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
@@ -195,27 +180,29 @@ class HobbyInfoControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.hasHobbies").value(p1));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(hobbyInfoOneId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.personId").value(p1.getId()))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyName").value(h1.getName()));
 
     }
 
- */
-/* Jeg ved ikke, hvordan man indsætter flere parametre
+//Jeg ved ikke, hvordan man indsætter flere parametre
     @Test
-    void addHobbyInfo() throws JsonProcessingException {
+    void addHobbyInfo() throws Exception {
        mockMvc.perform(MockMvcRequestBuilders.post("/api/personalHobbies")
                         .contentType("application/json")
                         .accept("application/json")
-                        .content(objectMapper.writeValueAsString(p1), objectMapper.writeValueAsString(h1))
+                        .content(objectMapper.writeValueAsString(p1))
+                       .content(objectMapper.writeValueAsString(h2)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("Tilde@mail.dk"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.hasHobbies").value(p2))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.hobbyObject").value(h2));
 
 
         //Testing
-        assertEquals(3, personRepository.count());
+        assertEquals(6, hobbyInfoRepository.count());
     }
 
- */
 }
