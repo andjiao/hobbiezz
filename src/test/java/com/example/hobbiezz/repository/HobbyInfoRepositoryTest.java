@@ -117,7 +117,7 @@ class HobbyInfoRepositoryTest {
 
     @Test
     void findHobbyInfosByHasHobbies_Id() {
-        List<HobbyInfo> testHobbyInfo = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(1);
+        List<HobbyInfo> testHobbyInfo = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(person1Id);
 
         assertEquals(3, testHobbyInfo.size());
 
