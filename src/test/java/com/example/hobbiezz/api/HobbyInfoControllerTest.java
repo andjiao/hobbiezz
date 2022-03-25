@@ -74,7 +74,7 @@ class HobbyInfoControllerTest {
  */
 
 
-
+/*
 
     @BeforeEach
     public void setup() {
@@ -141,6 +141,8 @@ class HobbyInfoControllerTest {
 
     }
 
+ */
+
 /*
     //Virker ikke 22/3
     @Test
@@ -158,7 +160,7 @@ class HobbyInfoControllerTest {
 
  */
 
-
+/*
     @Test
     void testGetHObby() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
@@ -196,6 +198,8 @@ class HobbyInfoControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.hasHobbies").value(p1));
 
     }
+
+ */
 /* Jeg ved ikke, hvordan man indsætter flere parametre
     @Test
     void addHobbyInfo() throws JsonProcessingException {

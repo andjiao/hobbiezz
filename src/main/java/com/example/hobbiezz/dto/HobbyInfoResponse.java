@@ -32,12 +32,22 @@ public class HobbyInfoResponse {
 
     Person hasHobbies;
 
+    String hobbyName;
+
+    int personId;
+
+    String personName;
+
     public HobbyInfoResponse(HobbyInfo hobbyInfo){
         this.id= hobbyInfo.getId();
         this.hobbyAdded=hobbyInfo.getHobbyAdded();
-        this.hobbyObject=hobbyInfo.getHobbyObject();
-        this.hasHobbies=hobbyInfo.getHasHobbies();
+        this.hobbyName = hobbyInfo.getHobbyObject().getName();
+        this.personId = hobbyInfo.getHasHobbies().getId();
+        this.personName = hobbyInfo.getHasHobbies().getFirstName() + " " + hobbyInfo.getHasHobbies().getLastName();
+
     }
+
+
 
     public List< HobbyInfoResponse> getHobbyInfoFromEntities(List<HobbyInfo> hobbyInfos){
         return hobbyInfos.stream().map(hobbyInfo -> new HobbyInfoResponse(hobbyInfo)).collect(Collectors.toList());

@@ -12,6 +12,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query("select (count(m) > 0) from Person m where m.email = :email")
     boolean emailExist(String email);
 
+
     Person findPersonByHobbyInfos(HobbyInfo hobbyinfo);
     Person findPersonById(int id);
 

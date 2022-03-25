@@ -12,11 +12,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
+@RestController
+
 @RequestMapping("api/personalHobbies")
 public class HobbyInfoController {
 
     HobbyInfoService hobbyInfoService;
     HobbyService hobbyService;
+
+    public HobbyInfoController(HobbyInfoService hobbyInfoService, HobbyService hobbyService) {
+        this.hobbyInfoService = hobbyInfoService;
+        this.hobbyService = hobbyService;
+    }
 
     //Nedenstående skal ændres til, at indput er PersonRequest og HobbyRequest output er HobbyInfoRequest
     @PostMapping
