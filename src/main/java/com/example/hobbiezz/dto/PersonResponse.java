@@ -23,7 +23,7 @@ public class PersonResponse {
         this.lastName = person.getLastName();
         this.phone = person.getPhone();
         if(includeId){
-            this.id = id;
+            this.id = person.getId();
         }
         if(includeContactInfo){
             this.phone = person.getPhone();

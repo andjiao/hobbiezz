@@ -25,7 +25,7 @@ public class Hobby {
     String inOut;
 
     /*@OneToMany(mappedBy = "hobbyWithInfo")
-    private Set<HobbyInfo> hobbies = new HashSet<>();*/
+    private Set<HobbyInfo> hobbies.txt = new HashSet<>();*/
 
     public Hobby(HobbyRequest body){
         this.name = body.getName();

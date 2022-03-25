@@ -67,7 +67,7 @@ class HobbyControllerTest {
     void testGetHobbies() throws Exception {
         String name = "$[?(@.name == '%s')]";
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/hobbies/all")
+                        .get("/api/hobbies.txt/all")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ class HobbyControllerTest {
     @Test
     void testGetHobby() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api/hobbies/{name}", "Name1")
+                        .get("/api/hobbies.txt/{name}", "Name1")
                         .accept(MediaType.APPLICATION_JSON))
                         .andDo(print())
                         .andExpect(status().isOk())

@@ -57,13 +57,13 @@ public class PersonController {
     @GetMapping("/personalhobbies/{id}")
     public List<Hobby> getPersonsHobbies (@PathVariable int id){
         List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHasHobbies_Id(id);
-        List<Hobby> hobbies = null;
+        List<Hobby> hobbies.txt = null;
 
         for (HobbyInfo hobbyInfo: hobbyInfos) {
-            hobbies.add(hobbyRepo.findHobbyByHobbyInfos(hobbyInfo));
+            hobbies.txt.add(hobbyRepo.findHobbyByHobbyInfos(hobbyInfo));
         }
 
-        return hobbies;
+        return hobbies.txt;
     }
 
      */
