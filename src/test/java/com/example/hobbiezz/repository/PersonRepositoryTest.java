@@ -36,6 +36,7 @@ class PersonRepositoryTest {
     static String hobby2Name;
     static Person p1, p2;
     static Hobby h1, h2;
+    static HobbyInfo hi1;
 
     //Store som id's for the test methods
     //static int person1Id, person2Id;
@@ -90,7 +91,7 @@ class PersonRepositoryTest {
 
 
         //MakeHobbyInfos
-        HobbyInfo hi1 = hobbyInfoRepository.save(new HobbyInfo
+        hi1 = hobbyInfoRepository.save(new HobbyInfo
                 (LocalDateTime.of(2022, 03, 01, 9, 23), h1, p1));
         hobbyInfoOneId = hi1.getId();
 
@@ -112,16 +113,20 @@ class PersonRepositoryTest {
         @Test
         void emailExists () {
             String emailExists = "Isabel@mail.dk";
-            String emailDoesntExist = "dosentexist@mail.dk";
+            String emailDoesntExist = "doesntexist@mail.dk";
             assertTrue(personRepository.emailExists(emailExists));
             assertFalse(personRepository.emailExists(emailDoesntExist));
         }
 
         @Test
         void findPersonByHobbyInfos () {
+            Person testPerson = personRepository.findPersonByHobbyInfos(hi1);
+            assertEquals(testPerson, p1);
         }
 
         @Test
         void findPersonById () {
+            Person testPerson = personRepository.findPersonById(person1Id);
+            assertEquals(testPerson, p1);
         }
     }
