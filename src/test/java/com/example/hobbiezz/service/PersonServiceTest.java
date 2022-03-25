@@ -5,6 +5,7 @@ import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,15 +30,20 @@ class PersonServiceTest {
     @Autowired
     HobbyInfoRepository hobbyInfoRepository;
 
+    @Autowired
+    HobbyRepository hobbyRepository;
+
+
     PersonService personService;
 
     static int person1Id, person2Id;
 
     @BeforeAll
     static void setup(@Autowired PersonRepository personRepository, @Autowired AddressRepository addressRepository,
-                      @Autowired HobbyInfoRepository hobbyInfoRepository) {
+                      @Autowired HobbyInfoRepository hobbyInfoRepository, @Autowired HobbyRepository hobbyRepository) {
         addressRepository.deleteAll();
         hobbyInfoRepository.deleteAll();
+        hobbyRepository.deleteAll();
         personRepository.deleteAll();
         person1Id = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
         person2Id = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();

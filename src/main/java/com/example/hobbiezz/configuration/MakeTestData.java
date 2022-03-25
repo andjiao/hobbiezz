@@ -1,5 +1,6 @@
 package com.example.hobbiezz.configuration;
 
+import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
@@ -16,8 +17,11 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Profile("!test")
@@ -191,21 +195,25 @@ public class MakeTestData implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        /*
-        makeMembers();
-
-        makeHobbies();
-
-        System.out.println(hobbyService.getHobbies2());
-        System.out.println(hobbyService.getHobby("Fodbold"));
-
-        makeHobbyInfos();
-
-         */
-
         makeTestData();
 
+        /*
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHobbyAdded_Id("Fodbold");
 
+        List<Person> people = new ArrayList();
+
+        for (HobbyInfo hobbyInfo: hobbyInfos) {
+            people.add(personRepository.findPersonByHobbyInfos(hobbyInfo));
+        }
+
+        List<PersonResponse> personResponses = new ArrayList<>();
+
+        people.forEach((person) -> personResponses.add(new PersonResponse(person)));
+
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + personResponses + "!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+         */
 
     }
 }
