@@ -2,6 +2,7 @@ package com.example.hobbiezz.entity;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,16 +34,20 @@ public class Person {
     @Column(length = 20)
     String phone;
 
+    @ManyToOne
+    Address connectedAddress;
+
+
     public Person(String email, String firstName, String lastName, String phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+
     }
 
 
-    @ManyToOne
-    Address connectedAddress;
+
 
     /*@OneToMany(mappedBy = "personalAddress", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
@@ -74,7 +79,7 @@ public class Person {
     }
 
 
-    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 

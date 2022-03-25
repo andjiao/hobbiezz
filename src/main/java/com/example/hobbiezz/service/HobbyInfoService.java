@@ -6,6 +6,7 @@ import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.error.Client4xxException;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,16 @@ import java.util.List;
 public class HobbyInfoService {
 
     HobbyInfoRepository hobbyInfoRepo;
-    //HobbyRepo hobbyRepo;
+    HobbyRepository hobbyRepository;
     PersonRepository personRepository;
     Person person;
 
-    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, PersonRepository personRepository){
-        this.hobbyInfoRepo= hobbyInfoRepo;
-        this.personRepository=personRepository;
+    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, HobbyRepository hobbyRepository, PersonRepository personRepository) {
+        this.hobbyInfoRepo = hobbyInfoRepo;
+        this.hobbyRepository = hobbyRepository;
+        this.personRepository = personRepository;
     }
+
 
     /*
     public List<HobbyInfo> getPersonalHobbyList(int id){
@@ -44,10 +47,12 @@ public class HobbyInfoService {
 
 
     //Denne metode opretter en ny HobbyInfo, der forbinder en hobby med en person.
-    public HobbyInfo connectHobbyToPerson(Hobby hobby, Person person){
+    public HobbyInfoResponse connectHobbyToPerson(String hobbyName, int personId){
+        Hobby hobby = hobbyRepository.getById(hobbyName);
+        Person person = personRepository.getById(personId);
         HobbyInfo newHobbyInfo = hobbyInfoRepo.save(new HobbyInfo(hobby, person));
 
-        return newHobbyInfo;
+        return new HobbyInfoResponse(newHobbyInfo);
     }
 
 

@@ -3,6 +3,9 @@ package com.example.hobbiezz.service;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.AddressRepository;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,18 +19,31 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
 @DataJpaTest
 class PersonServiceTest {
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
+
+    @Autowired
+    HobbyInfoRepository hobbyInfoRepository;
+
+    @Autowired
+    HobbyRepository hobbyRepository;
+
 
     PersonService personService;
 
     static int person1Id, person2Id;
 
     @BeforeAll
-    static void setup(@Autowired PersonRepository personRepository) {
+    static void setup(@Autowired PersonRepository personRepository, @Autowired AddressRepository addressRepository,
+                      @Autowired HobbyInfoRepository hobbyInfoRepository, @Autowired HobbyRepository hobbyRepository) {
+        addressRepository.deleteAll();
+        hobbyInfoRepository.deleteAll();
+        hobbyRepository.deleteAll();
         personRepository.deleteAll();
         person1Id = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
         person2Id = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
@@ -64,6 +80,7 @@ class PersonServiceTest {
 
     }
 
+
     //Virker 23/3
     @Test
     void testGetPeople() {
@@ -80,7 +97,7 @@ class PersonServiceTest {
     //Virker 22/3
     @Test
     void testGetPerson() throws Exception {
-        PersonResponse testPerson = personService.getPerson(1);
+        PersonResponse testPerson = personService.getPerson(person1Id);
         assertEquals("Isabel@mail.dk", testPerson.getEmail());
         assertNotEquals("Andrea@mail.dk", testPerson.getEmail());
     }
@@ -94,11 +111,11 @@ class PersonServiceTest {
                 ("ændret@mail.dk", "ændret", "ændret", "ændret");
 
         //Metoden kaldes
-        personService.updatePerson(updatedPersonRequest, 1);
+        personService.updatePerson(updatedPersonRequest, person1Id);
 
 
-        assertEquals("ændret@mail.dk", personService.getPerson(1).getEmail());
-        assertNotEquals("Isabel@mail.dk", personService.getPerson(1).getEmail());
+        assertEquals("ændret@mail.dk", personService.getPerson(person1Id).getEmail());
+        assertNotEquals("Isabel@mail.dk", personService.getPerson(person1Id).getEmail());
 
 
 
@@ -109,13 +126,13 @@ class PersonServiceTest {
     @Test
     void testDeletePerson() throws Exception {
         List<PersonResponse> people = personService.getPeople();
-        assertEquals(2, people.size());
-        personService.deletePerson(1);
+        int sizeBeforeDelete = people.size();
+        //assertEquals(2, people.size());
+        personService.deletePerson(person1Id);
 
         people = personService.getPeople();
-        assertEquals(1, people.size());
+        assertEquals(sizeBeforeDelete-1, people.size());
 
     }
 
 }
-*/
