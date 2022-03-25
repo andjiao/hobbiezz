@@ -31,7 +31,7 @@ public class HobbyController {
 
     //Metoden virker for sig selv, men controlleren virker ikke 21/3
     @GetMapping("/{name}")
-    public HobbyResponse getHobby(@PathVariable String name) throws Exception{
+    public HobbyResponse getHobby(@PathVariable String name){
         return hobbyService.getHobby(name);
     }
 

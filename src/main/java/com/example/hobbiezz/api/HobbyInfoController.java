@@ -31,7 +31,7 @@ public class HobbyInfoController {
 
     //Den virker 25/3
     @PutMapping("/{personId}/{hobbyName}")
-    public HobbyInfoResponse addHobbyInfo(@PathVariable int personId, @PathVariable String hobbyName) throws Exception {
+    public HobbyInfoResponse addHobbyInfo(@PathVariable int personId, @PathVariable String hobbyName) {
         HobbyInfoResponse info = hobbyInfoService.connectHobbyToPerson(hobbyName, personId);
 
         return info;
@@ -53,7 +53,7 @@ public class HobbyInfoController {
  */
 
     @GetMapping("/{id}")
-    public HobbyInfoResponse getHobbyInfo (@PathVariable int id) throws Exception {
+    public HobbyInfoResponse getHobbyInfo (@PathVariable int id)  {
         return hobbyInfoService.getHobbyInfo(id);
     }
 

@@ -35,7 +35,7 @@ public class AddressService {
 
 
     //Virker
-    public AddressResponse getAddressById(int id) throws Exception {
+    public AddressResponse getAddressById(int id) {
         Address address = addressRepository.findById(id).orElseThrow(()-> new Client4xxException(
                 "No address with this id exists"));
         return new AddressResponse(address);

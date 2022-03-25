@@ -37,13 +37,13 @@ public class PersonController {
 
     //Virker 21/3
     @PostMapping
-    public PersonResponse addPerson(@RequestBody PersonRequest body) throws Exception {
+    public PersonResponse addPerson(@RequestBody PersonRequest body) {
         return personService.addPerson(body);
     }
 
     //Virker 21/3
     @PutMapping("/{id}")
-    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) throws Exception {
+    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) {
         return personService.updatePerson(body,id);
     }
 
