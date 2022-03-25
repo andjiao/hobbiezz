@@ -52,14 +52,6 @@ public class HobbyInfoController {
 
  */
 
-    /* Denne metode giver ingen mening, skal den være i HobbyController? - Amanda
-    @GetMapping("/{name}")
-    public HobbyResponse getHObby(@PathVariable String name) throws Exception {
-        return hobbyService.getHobby(name);
-    }
-
-     */
-
     @GetMapping("/{id}")
     public HobbyInfoResponse getHobbyInfo (@PathVariable int id) throws Exception {
         return hobbyInfoService.getHobbyInfo(id);
