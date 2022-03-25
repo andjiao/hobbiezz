@@ -79,30 +79,35 @@ public class PersonController {
         return hobbieResponses;
     }
 
-    /*
+/* Virker ikke 24/3
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
-    @GetMapping("/people/{name}")
-    public List<Person> getPeopleConnectedToHobby (@PathVariable String name){
-        Hobby hobby = hobbyRepo.getById(name); //Skal ændres
+    @GetMapping("/hobby/{name}")
+    public List<PersonResponse> getPeopleConnectedToHobby (@PathVariable String name){
+        //Hobby hobby = hobbyRepository.getById(name); //Skal ændres
 
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHobbyAdded(hobby);
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHobbyAdded_Id(name);
 
-        List<Person> people = null;
+         List<Person> people = new ArrayList();
 
         for (HobbyInfo hobbyInfo: hobbyInfos) {
             people.add(personRepository.findPersonByHobbyInfos(hobbyInfo));
         }
 
-        return people;
+        List<PersonResponse> personResponses = new ArrayList<>();
+
+        people.forEach((person) -> personResponses.add(new PersonResponse(person)));
+
+        return personResponses;
     }
 
-     */
+ */
 
 
     //Lavet af Isabel
     //Virker 21/3
+    //Virker ikke 24/3
     @DeleteMapping("/{id}")
-    public void deleteMember(@PathVariable int id) {
+    public void deletePerson(@PathVariable int id) {
         personService.deletePerson(id);
     }
 
