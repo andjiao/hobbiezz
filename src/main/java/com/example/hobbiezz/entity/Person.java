@@ -33,16 +33,20 @@ public class Person {
     @Column(length = 20)
     String phone;
 
+    @ManyToOne
+    Address connectedAddress;
+
+
     public Person(String email, String firstName, String lastName, String phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+
     }
 
 
-    @ManyToOne
-    Address connectedAddress;
+
 
     /*@OneToMany(mappedBy = "personalAddress", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)

@@ -1,5 +1,6 @@
 package com.example.hobbiezz.dto;
 
+import com.example.hobbiezz.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,6 @@ public class PersonRequest {
     String firstName;
     String lastName;
     String phone;
+    Address address;
 
 }

@@ -1,5 +1,6 @@
 package com.example.hobbiezz.dto;
 
+import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Person;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class PersonResponse {
     String firstName;
     String lastName;
     String phone;
+    Address address;
 
 
     public PersonResponse(Person person, boolean includeId, boolean includeContactInfo) {
@@ -22,12 +24,14 @@ public class PersonResponse {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.phone = person.getPhone();
+
         if(includeId){
             this.id = person.getId();
         }
         if(includeContactInfo){
             this.phone = person.getPhone();
             this.email = person.getEmail();
+            this.address= person.getConnectedAddress();
         }
     }
 
@@ -36,6 +40,7 @@ public class PersonResponse {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.phone = person.getPhone();
+        this.address= person.getConnectedAddress();
     }
 
 

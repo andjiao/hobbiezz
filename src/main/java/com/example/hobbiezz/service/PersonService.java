@@ -50,6 +50,7 @@ public class PersonService {
         personUpdated.setFirstName(personToEdit.getFirstName());
         personUpdated.setLastName(personToEdit.getLastName());
         personUpdated.setPhone(personToEdit.getPhone());
+        personUpdated.setConnectedAddress(personToEdit.getAddress());
 
         return new PersonResponse(personRepository.save(personUpdated));
     }
