@@ -62,6 +62,8 @@ class PersonControllerTest {
 
     static int personOneId, personTwoId;
 
+    static Hobby h1, h2, h3;
+
     @BeforeEach
     public void setup() {
         hobbyRepository.deleteAll();
@@ -92,13 +94,13 @@ class PersonControllerTest {
 
         //Makehobbies
 
-        Hobby h1 = hobbyRepository.save(new Hobby
+        h1 = hobbyRepository.save(new Hobby
                 ("Fodbold", "category", "fodbold.dk", "out"));
 
-        Hobby h2 = hobbyRepository.save(new Hobby
+        h2 = hobbyRepository.save(new Hobby
                 ("Håndbold", "category", "håndbold.dk", "out"));
 
-        Hobby h3 = hobbyRepository.save(new Hobby
+        h3 = hobbyRepository.save(new Hobby
                 ("LARP", "category", "LARP.dk", "out"));
 
         Hobby h4 = hobbyRepository.save(new Hobby
@@ -241,4 +243,19 @@ class PersonControllerTest {
     }
 
 
+    @Test
+    void getPeopleConnectedToHobby() throws Exception {
+        String name = h1.getName();
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/person/hobby/{name}", name)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0]").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2));
+
+
+    }
 }

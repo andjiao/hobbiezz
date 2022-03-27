@@ -1,5 +1,6 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.HobbyInfoResponse;
 import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
@@ -63,6 +64,8 @@ public class PersonController {
 
 
     //Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
+    //Der skal skrives en metode i service, der erstatter den kode, der er skrevet her.
+    // Controlleren skal blot kalde metoden.
     @GetMapping("/personalhobbies/{id}")
     public List<HobbyResponse> getPersonsHobbies (@PathVariable int id){
         List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
@@ -79,28 +82,12 @@ public class PersonController {
         return hobbieResponses;
     }
 
-/* Virker ikke 24/3
+    //Ikke testet
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
     @GetMapping("/hobby/{name}")
     public List<PersonResponse> getPeopleConnectedToHobby (@PathVariable String name){
-        //Hobby hobby = hobbyRepository.getById(name); //Skal ændres
-
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHobbyAdded_Id(name);
-
-         List<Person> people = new ArrayList();
-
-        for (HobbyInfo hobbyInfo: hobbyInfos) {
-            people.add(personRepository.findPersonByHobbyInfos(hobbyInfo));
-        }
-
-        List<PersonResponse> personResponses = new ArrayList<>();
-
-        people.forEach((person) -> personResponses.add(new PersonResponse(person)));
-
-        return personResponses;
+        return personService.getPeopleConnectedToHobby(name);
     }
-
- */
 
 
     //Lavet af Isabel
