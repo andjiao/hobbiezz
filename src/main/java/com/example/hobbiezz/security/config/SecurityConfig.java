@@ -96,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "api/hobbies/**").permitAll()
+                .antMatchers(HttpMethod.GET, "api/personalHobbies/**").permitAll()
                 // All other endpoints are private
                 //.anyRequest().authenticated();
                 .anyRequest().permitAll();  //Disable Security - diabled nu, så det ikke skaber problemer

@@ -1,14 +1,13 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.TestUtils;
 import com.example.hobbiezz.dto.PersonRequest;
-import com.example.hobbiezz.entity.Address;
-import com.example.hobbiezz.entity.Hobby;
-import com.example.hobbiezz.entity.HobbyInfo;
-import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.entity.*;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
 import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.security.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +55,9 @@ class PersonControllerTest {
     @Autowired
     HobbyRepository hobbyRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -64,12 +66,15 @@ class PersonControllerTest {
 
     static Hobby h1, h2, h3;
 
+    static BaseUser admin;
+
     @BeforeEach
     public void setup() {
         hobbyRepository.deleteAll();
         personRepository.deleteAll();
         addressRepository.deleteAll();
         hobbyInfoRepository.deleteAll();
+        userRepository.deleteAll();
 
         //MakeAdresses
         Address a1 = new Address
@@ -126,17 +131,26 @@ class PersonControllerTest {
         HobbyInfo hi5 = hobbyInfoRepository.save(new HobbyInfo
                 (LocalDateTime.of(2022,03,05,9,23),h4,p1));
 
+        //Create user(s) needed to login to get a token for protected endpoints
+        userRepository.deleteAll();
+        admin = new BaseUser("xxx-user","a@b.dk","test12");
+        admin.addRole(Role.ADMIN);
+        userRepository.save(admin);
+
     }
 
 
     //Virker 22/3
     @Test
     void testAddPerson() throws Exception {
+        //Login and get the token
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         PersonRequest newPerson = new PersonRequest("Tilde@mail.dk", "Tilde", "Tildesen", "528");
         mockMvc.perform(MockMvcRequestBuilders.post("/api/person")
                         .contentType("application/json")
                         .accept("application/json")
-                        .content(objectMapper.writeValueAsString(newPerson)))
+                .header("Authorization","Bearer "+adminToken)
+                .content(objectMapper.writeValueAsString(newPerson)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
@@ -153,11 +167,14 @@ class PersonControllerTest {
     //Virker 22/3
     @Test
     public void testUpdatePerson() throws Exception {
+        //Login and get the token
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         mockMvc.perform( MockMvcRequestBuilders
                         .put("/api/person/{id}", personOneId)
                         .content(objectMapper.writeValueAsString(new PersonRequest("Ændret@mail.dk", "Ændret", "Ændret", "911")))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization","Bearer "+adminToken))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Ændret"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("Ændret"))
@@ -170,9 +187,11 @@ class PersonControllerTest {
     @Test
     void getPeople() throws Exception {
         String email = "$[?(@.email == '%s')]";
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/person/people")
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization","Bearer "+adminToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -188,9 +207,11 @@ class PersonControllerTest {
     //Virker 22/3
     @Test
     void getPerson() throws Exception {
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         mockMvc.perform( MockMvcRequestBuilders
                         .get("/api/person/{id}", personOneId)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header("Authorization","Bearer "+adminToken))
                         .andDo(print())
                         .andExpect(status().isOk())
                         .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
@@ -226,9 +247,11 @@ class PersonControllerTest {
     @Test
     void testGetPersonsHobbies() throws Exception {
         String name = "$[?(@.name == '%s')]";
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/person/personalhobbies/" + personOneId)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization","Bearer "+adminToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -246,9 +269,11 @@ class PersonControllerTest {
     @Test
     void getPeopleConnectedToHobby() throws Exception {
         String name = h1.getName();
+        String adminToken = TestUtils.login("xxx-user","test12",mockMvc);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/person/hobby/{name}", name)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization","Bearer "+adminToken))
                 .andDo(print())
                 .andExpect(status().isOk())
 
