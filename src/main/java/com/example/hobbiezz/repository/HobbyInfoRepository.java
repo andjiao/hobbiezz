@@ -16,12 +16,14 @@ public interface HobbyInfoRepository extends JpaRepository<HobbyInfo, Integer> {
     //Få liste over HobbyInfo knyttet til en person
     List<HobbyInfo> findHobbyInfosByHasHobbies_Id(int id);
 
-/*
-    //Få liste over HobbyInfo knyttet til en hobby
-    List<HobbyInfo> findHobbyInfosByHobbyAdded(Hobby hobby);
-    List<HobbyInfo> findHobbyInfosByHobbyAdded_Id(String name);
 
- */
+    //Få liste over HobbyInfo knyttet til en hobby
+
+    List<HobbyInfo> findHobbyInfosByHobbyObject(Hobby hobby);
+
+    //Nedenstående gør det umuligt for programmet at køre, når den ikke er udkommenteret
+    //List<HobbyInfo> findHobbyInfosByHobbyAdded_Id(String name);
+
 
 
 }
