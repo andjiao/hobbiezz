@@ -93,8 +93,10 @@ public class PersonController {
     //Lavet af Isabel
     //Virker 21/3
     //Virker ikke 24/3
+    //Ændret 27/3
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable int id) {
+
         personService.deletePerson(id);
     }
 

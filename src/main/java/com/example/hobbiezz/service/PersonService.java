@@ -64,10 +64,6 @@ public class PersonService {
     }
 
 
-    public void deletePerson(int id){
-        personRepository.deleteById(id);
-    }
-
     public List<PersonResponse> getPeopleConnectedToHobby (String name){
         Hobby hobby = hobbyRepository.getById(name);
 
@@ -84,6 +80,19 @@ public class PersonService {
         people.forEach((person) -> personResponses.add(new PersonResponse(person)));
 
         return personResponses;
+    }
+
+
+    public void deleteHobbiesConnectedToPerson (int id) {
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
+        for (HobbyInfo hobbyInfo: hobbyInfos) {
+            hobbyInfoRepository.deleteById(hobbyInfo.getId());
+        }
+    }
+
+    public void deletePerson(int id){
+        personRepository.deleteById(id);
+        deleteHobbiesConnectedToPerson(id);
     }
 
 }
