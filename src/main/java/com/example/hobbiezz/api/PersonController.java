@@ -13,6 +13,7 @@ import com.example.hobbiezz.repository.PersonRepository;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class PersonController {
 
     //Virker 21/3
     @PutMapping("/{id}")
+    @RolesAllowed("ADMIN")
     public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) throws Exception {
         return personService.updatePerson(body,id);
     }
@@ -51,6 +53,7 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/people")
+    @RolesAllowed("ADMIN")
     public List<PersonResponse> getPeople (){
         return personService.getPeople();
     }
@@ -58,6 +61,7 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/{id}")
+    @RolesAllowed("ADMIN")
     public PersonResponse getPerson (@PathVariable int id) throws Exception {
         return personService.getPerson(id);
     }
@@ -67,6 +71,7 @@ public class PersonController {
     //Der skal skrives en metode i service, der erstatter den kode, der er skrevet her.
     // Controlleren skal blot kalde metoden.
     @GetMapping("/personalhobbies/{id}")
+    @RolesAllowed("ADMIN")
     public List<HobbyResponse> getPersonsHobbies (@PathVariable int id){
         List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
         List<Hobby> hobbies = new ArrayList();
@@ -85,6 +90,7 @@ public class PersonController {
     //Ikke testet
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
     @GetMapping("/hobby/{name}")
+    @RolesAllowed("ADMIN")
     public List<PersonResponse> getPeopleConnectedToHobby (@PathVariable String name){
         return personService.getPeopleConnectedToHobby(name);
     }
@@ -94,6 +100,7 @@ public class PersonController {
     //Virker 21/3
     //Virker ikke 24/3
     @DeleteMapping("/{id}")
+    @RolesAllowed("ADMIN")
     public void deletePerson(@PathVariable int id) {
         personService.deletePerson(id);
     }

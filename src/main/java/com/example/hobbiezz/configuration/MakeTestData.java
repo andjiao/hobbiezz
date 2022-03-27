@@ -1,14 +1,8 @@
 package com.example.hobbiezz.configuration;
 
-import com.example.hobbiezz.dto.PersonResponse;
-import com.example.hobbiezz.entity.Address;
-import com.example.hobbiezz.entity.Hobby;
-import com.example.hobbiezz.entity.HobbyInfo;
-import com.example.hobbiezz.entity.Person;
-import com.example.hobbiezz.repository.AddressRepository;
-import com.example.hobbiezz.repository.HobbyInfoRepository;
-import com.example.hobbiezz.repository.HobbyRepository;
-import com.example.hobbiezz.repository.PersonRepository;
+import com.example.hobbiezz.entity.*;
+import com.example.hobbiezz.repository.*;
+import com.example.hobbiezz.security.UserRepository;
 import com.example.hobbiezz.service.AddressService;
 import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.HobbyService;
@@ -17,11 +11,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @Profile("!test")
@@ -35,8 +26,9 @@ public class MakeTestData implements ApplicationRunner {
     HobbyInfoRepository hobbyInfoRepository;
     AddressRepository addressRepository;
     AddressService addressService;
+    UserRepository userRepository;
 
-    public MakeTestData(PersonRepository personRepository, PersonService personService, HobbyInfoService hobbyInfoService, HobbyRepository hobbyRepository, HobbyService hobbyService, HobbyInfoRepository hobbyInfoRepository, AddressRepository addressRepository, AddressService addressService) {
+    public MakeTestData(PersonRepository personRepository, PersonService personService, HobbyInfoService hobbyInfoService, HobbyRepository hobbyRepository, HobbyService hobbyService, HobbyInfoRepository hobbyInfoRepository, AddressRepository addressRepository, AddressService addressService, UserRepository userRepository) {
         this.personRepository = personRepository;
         this.personService = personService;
         this.hobbyInfoService = hobbyInfoService;
@@ -45,6 +37,7 @@ public class MakeTestData implements ApplicationRunner {
         this.hobbyInfoRepository = hobbyInfoRepository;
         this.addressRepository = addressRepository;
         this.addressService = addressService;
+        this.userRepository = userRepository;
     }
 
 
@@ -135,59 +128,21 @@ public class MakeTestData implements ApplicationRunner {
         HobbyInfo hi10 = hobbyInfoRepository.save(new HobbyInfo
                 (LocalDateTime.of(2022,03,10,9,23),h3,p5));
 
+        //Make users
+        BaseUser user = new BaseUser("user", "user@a.dk", "test12");
+        user.addRole(Role.USER);
+        BaseUser admin = new BaseUser("admin", "admin@a.dk", "test12");
+        admin.addRole(Role.ADMIN);
 
-    }
+        BaseUser both = new BaseUser("user_admin", "both@a.dk", "test12");
+        both.addRole(Role.USER);
+        both.addRole(Role.ADMIN);
 
-
-    public void makeMembers(){
-        Person m1 = personRepository.save(new Person
-                ("amanda@amanda.dk", "Amanda", "Amandasen", "70121416"));
-        Person m2 = personRepository.save(new Person
-                ("casper@casper.co.uk", "Casper", "Caspersen", "88888888"));
-        Person m3 = personRepository.save(new Person
-                ("test@test.com", "Test", "Test", "125"));
-
-        /*
-        Hobby h1 = hobbyRepo.save(new Hobby("test", "test", "test", "test"));
-
-        hobbyInfoService.connectHobbyToPerson(m1, h1);
-
-         */
-
-        System.out.println("--------------makeMembers testdata kørt--------------");
-    }
-
-    public void makeHobbies(){
-        Hobby h1 = hobbyRepository.save(new Hobby
-                ("Fodbold", "fodbold.dk", "Kategori", "out"));
-
-        /*
-        Hobby h1 = hobbyRepo.save(new Hobby("test", "test", "test", "test"));
-
-        hobbyInfoService.connectHobbyToPerson(m1, h1);
-
-         */
-
-        System.out.println("--------------makeHobbies testdata kørt--------------");
-    }
+        userRepository.save(user);
+        userRepository.save(admin);
+        userRepository.save(both);
 
 
-    //Virker!!!
-    public void makeHobbyInfos(){
-        Hobby h1 = new Hobby
-                ("Fodbold", "fodbold.dk", "Kategori", "out");
-        hobbyRepository.save(h1);
-
-        Person m1 = new Person
-                ("amanda2@amanda.dk", "Amanda", "Amandasen", "70121416");
-        personRepository.save(m1);
-
-        HobbyInfo hi1 = new HobbyInfo(LocalDateTime.of(2022,03,01,9,23),h1,m1);
-
-        hobbyInfoRepository.save(hi1);
-
-
-        System.out.println("--------------makeHobbyInfos testdata kørt--------------");
     }
 
 
@@ -197,23 +152,6 @@ public class MakeTestData implements ApplicationRunner {
 
         makeTestData();
 
-        /*
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHobbyAdded_Id("Fodbold");
-
-        List<Person> people = new ArrayList();
-
-        for (HobbyInfo hobbyInfo: hobbyInfos) {
-            people.add(personRepository.findPersonByHobbyInfos(hobbyInfo));
-        }
-
-        List<PersonResponse> personResponses = new ArrayList<>();
-
-        people.forEach((person) -> personResponses.add(new PersonResponse(person)));
-
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!" + personResponses + "!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-         */
 
     }
 }
