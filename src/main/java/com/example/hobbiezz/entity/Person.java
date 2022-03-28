@@ -87,6 +87,19 @@ public class Person {
         hobbyInfos.add(hi);
     }
 
+    //Lavet for at kunne lave tests
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return getId() == person.getId() && Objects.equals(getEmail(), person.getEmail()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getEmail(), getFirstName(), getLastName());
+    }
 }
 
 
