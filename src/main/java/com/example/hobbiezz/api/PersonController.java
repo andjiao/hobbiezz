@@ -1,12 +1,19 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.HobbyInfoResponse;
+import com.example.hobbiezz.dto.HobbyResponse;
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyInfoRepository;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import com.example.hobbiezz.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -14,27 +21,30 @@ import java.util.List;
 @RestController
 
 
-@RequestMapping("api/krak")
+@RequestMapping("api/person")
 public class PersonController {
     PersonService personService;
     PersonRepository personRepository;
+    HobbyInfoRepository hobbyInfoRepository;
+    HobbyRepository hobbyRepository;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, PersonRepository personRepository, HobbyInfoRepository hobbyInfoRepository, HobbyRepository hobbyRepository) {
         this.personService = personService;
+        this.personRepository = personRepository;
+        this.hobbyInfoRepository = hobbyInfoRepository;
+        this.hobbyRepository = hobbyRepository;
     }
-    //HobbyInfoRepo hobbyInfoRepo;
-    //HobbyRepo hobbyRepo;
 
 
     //Virker 21/3
     @PostMapping
-    public PersonResponse addPerson(@RequestBody PersonRequest body) throws Exception {
+    public PersonResponse addPerson(@RequestBody PersonRequest body) {
         return personService.addPerson(body);
     }
 
     //Virker 21/3
     @PutMapping("/{id}")
-    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) throws Exception {
+    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) {
         return personService.updatePerson(body,id);
     }
 
@@ -48,50 +58,43 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/{id}")
-    public PersonResponse getPerson (@PathVariable int id) throws Exception {
+    public PersonResponse getPerson (@PathVariable int id) {
         return personService.getPerson(id);
     }
 
-    /*
+
     //Dette endpoint returnerer en liste over hobbyer, der er tilknyttet en person
+    //Der skal skrives en metode i service, der erstatter den kode, der er skrevet her.
+    // Controlleren skal blot kalde metoden.
     @GetMapping("/personalhobbies/{id}")
-    public List<Hobby> getPersonsHobbies (@PathVariable int id){
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHasHobbies_Id(id);
-        List<Hobby> hobbies = null;
+    public List<HobbyResponse> getPersonsHobbies (@PathVariable int id){
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepository.findHobbyInfosByHasHobbies_Id(id);
+        List<Hobby> hobbies = new ArrayList();
 
         for (HobbyInfo hobbyInfo: hobbyInfos) {
-            hobbies.add(hobbyRepo.findHobbyByHobbyInfos(hobbyInfo));
+            hobbies.add(hobbyRepository.findHobbyByHobbyInfos(hobbyInfo));
         }
 
-        return hobbies;
+        List<HobbyResponse> hobbieResponses = new ArrayList<>();
+
+        hobbies.forEach((hobby) -> hobbieResponses.add(new HobbyResponse(hobby)));
+
+        return hobbieResponses;
     }
 
-     */
-
-    /*
+    //Ikke testet
     //Dette endpoint returnerer alle personer, der er tilknyttet en hobby.
-    @GetMapping("/people/{name}")
-    public List<Person> getPeopleConnectedToHobby (@PathVariable String name){
-        Hobby hobby = hobbyRepo.getById(name); //Skal ændres
-
-        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHobbyAdded(hobby);
-
-        List<Person> people = null;
-
-        for (HobbyInfo hobbyInfo: hobbyInfos) {
-            people.add(personRepository.findPersonByHobbyInfos(hobbyInfo));
-        }
-
-        return people;
+    @GetMapping("/hobby/{name}")
+    public List<PersonResponse> getPeopleConnectedToHobby (@PathVariable String name){
+        return personService.getPeopleConnectedToHobby(name);
     }
-
-     */
 
 
     //Lavet af Isabel
     //Virker 21/3
+    //Virker ikke 24/3
     @DeleteMapping("/{id}")
-    public void deleteMember(@PathVariable int id) {
+    public void deletePerson(@PathVariable int id) {
         personService.deletePerson(id);
     }
 

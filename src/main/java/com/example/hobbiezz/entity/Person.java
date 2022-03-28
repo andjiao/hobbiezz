@@ -2,6 +2,7 @@ package com.example.hobbiezz.entity;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,16 +34,20 @@ public class Person {
     @Column(length = 20)
     String phone;
 
+    @ManyToOne
+    Address connectedAddress;
+
+
     public Person(String email, String firstName, String lastName, String phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+
     }
 
 
-    @ManyToOne
-    Address connectedAddress;
+
 
     /*@OneToMany(mappedBy = "personalAddress", fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
@@ -74,7 +79,7 @@ public class Person {
     }
 
 
-    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hasHobbies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     private Set<HobbyInfo> hobbyInfos = new HashSet<>();
 
@@ -82,6 +87,19 @@ public class Person {
         hobbyInfos.add(hi);
     }
 
+    //Lavet for at kunne lave tests
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return getId() == person.getId() && Objects.equals(getEmail(), person.getEmail()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getEmail(), getFirstName(), getLastName());
+    }
 }
 
 

@@ -5,6 +5,7 @@ package com.example.hobbiezz.service;
 import com.example.hobbiezz.dto.AddressRequest;
 import com.example.hobbiezz.dto.AddressResponse;
 import com.example.hobbiezz.entity.Address;
+import com.example.hobbiezz.error.Client4xxException;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,13 @@ public class AddressService {
 
 
     //Virker
-    public AddressResponse getAddressById(int id) throws Exception {
-        Address address = addressRepository.findById(id).orElseThrow(()-> new Exception(
+    public AddressResponse getAddressById(int id) {
+        Address address = addressRepository.findById(id).orElseThrow(()-> new Client4xxException(
                 "No address with this id exists"));
         return new AddressResponse(address);
     }
 
-    public AddressResponse getAddressConnectedToPerson(int personId) throws Exception {
+    public AddressResponse getAddressConnectedToPerson(int personId) {
         Address address = personRepository.findById(personId).get().getConnectedAddress();
         //orElseThrow(()->new Client4xxException("No address with this id exists"));
         return new AddressResponse(address);

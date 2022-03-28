@@ -1,15 +1,21 @@
 package com.example.hobbiezz.api;
 
+import com.example.hobbiezz.dto.HobbyInfoRequest;
 import com.example.hobbiezz.dto.HobbyInfoResponse;
 import com.example.hobbiezz.dto.HobbyResponse;
+import com.example.hobbiezz.dto.PersonResponse;
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
+import com.example.hobbiezz.repository.HobbyRepository;
 import com.example.hobbiezz.service.HobbyInfoService;
 import com.example.hobbiezz.service.HobbyService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@CrossOrigin
+@RestController
 
 @RequestMapping("api/personalHobbies")
 public class HobbyInfoController {
@@ -17,13 +23,22 @@ public class HobbyInfoController {
     HobbyInfoService hobbyInfoService;
     HobbyService hobbyService;
 
-    //Nedenstående skal ændres til, at indput er PersonRequest og HobbyRequest output er HobbyInfoRequest
-    /*@PostMapping
-    public HobbyInfo addHobbyInfo(@RequestBody Person person, Hobby hobby) throws Exception {
-        return hobbyInfoService.connectHobbyToPerson(person, hobby);
-    }*/
+    public HobbyInfoController(HobbyInfoService hobbyInfoService, HobbyService hobbyService) {
+        this.hobbyInfoService = hobbyInfoService;
+        this.hobbyService = hobbyService;
+    }
 
 
+    //Den virker 25/3
+    @PutMapping("/{personId}/{hobbyName}")
+    public HobbyInfoResponse addHobbyInfo(@PathVariable int personId, @PathVariable String hobbyName) {
+        HobbyInfoResponse info = hobbyInfoService.connectHobbyToPerson(hobbyName, personId);
+
+        return info;
+    }
+
+
+    //Virker ikke 25/3
     @DeleteMapping("/{id}")
     public void deleteHobbyInfo(@PathVariable int id) {
         hobbyInfoService.deleteHobbyInfo(id);
@@ -37,9 +52,9 @@ public class HobbyInfoController {
 
  */
 
-    @GetMapping("/{name}")
-    public HobbyResponse getHObby(@PathVariable String name) throws Exception {
-        return hobbyService.getHobby(name);
+    @GetMapping("/{id}")
+    public HobbyInfoResponse getHobbyInfo (@PathVariable int id)  {
+        return hobbyInfoService.getHobbyInfo(id);
     }
 
 }
