@@ -64,6 +64,8 @@ class PersonControllerTest {
 
     static Hobby h1, h2, h3;
 
+    static int addressOne;
+
     @BeforeEach
     public void setup() {
         hobbyRepository.deleteAll();
@@ -75,6 +77,7 @@ class PersonControllerTest {
         Address a1 = new Address
                 ("GadeVænget 1", "3. tv", "2200", "København");
         addressRepository.save(a1);
+        addressOne= a1.getId();
 
         Address a2 = new Address
                 ("GadeVænget 2", "2. tv", "2200", "København");
@@ -132,7 +135,12 @@ class PersonControllerTest {
     //Virker 22/3
     @Test
     void testAddPerson() throws Exception {
-        PersonRequest newPerson = new PersonRequest("Tilde@mail.dk", "Tilde", "Tildesen", "528");
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+        addressOne= a1.getId();
+
+        PersonRequest newPerson = new PersonRequest("Tilde@mail.dk", "Tilde", "Tildesen", "528",a1);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/person")
                         .contentType("application/json")
                         .accept("application/json")
@@ -153,9 +161,14 @@ class PersonControllerTest {
     //Virker 22/3
     @Test
     public void testUpdatePerson() throws Exception {
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+        addressOne= a1.getId();
+
         mockMvc.perform( MockMvcRequestBuilders
                         .put("/api/person/{id}", personOneId)
-                        .content(objectMapper.writeValueAsString(new PersonRequest("Ændret@mail.dk", "Ændret", "Ændret", "911")))
+                        .content(objectMapper.writeValueAsString(new PersonRequest("Ændret@mail.dk", "Ændret", "Ændret", "911",a1)))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

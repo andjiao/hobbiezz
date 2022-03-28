@@ -38,13 +38,13 @@ public class PersonController {
 
     //Virker 21/3
     @PostMapping
-    public PersonResponse addPerson(@RequestBody PersonRequest body) {
+    public PersonResponse addPerson(@RequestBody PersonRequest body) throws Exception {
         return personService.addPerson(body);
     }
 
     //Virker 21/3
     @PutMapping("/{id}")
-    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) {
+    public PersonResponse updatePerson(@RequestBody PersonRequest body, @PathVariable int id) throws Exception {
         return personService.updatePerson(body,id);
     }
 
@@ -58,7 +58,7 @@ public class PersonController {
 
     //Virker 21/3
     @GetMapping("/{id}")
-    public PersonResponse getPerson (@PathVariable int id) {
+    public PersonResponse getPerson (@PathVariable int id) throws Exception {
         return personService.getPerson(id);
     }
 

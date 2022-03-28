@@ -2,6 +2,7 @@ package com.example.hobbiezz.service;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Address;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
@@ -38,6 +39,8 @@ class PersonServiceTest {
 
     static int person1Id, person2Id;
 
+    static int addressOne;
+
     @BeforeAll
     static void setup(@Autowired PersonRepository personRepository, @Autowired AddressRepository addressRepository,
                       @Autowired HobbyInfoRepository hobbyInfoRepository, @Autowired HobbyRepository hobbyRepository) {
@@ -58,8 +61,13 @@ class PersonServiceTest {
     //Virker 22/3
     @Test
     void addPerson() throws Exception {
-        PersonRequest pr1 = new PersonRequest("Isabel@mail.dk", "aa", "aa", "aa");
-        PersonRequest pr2 = new PersonRequest("Unik@mail.dk", "aa", "aa", "aa");
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+        addressOne= a1.getId();
+
+        PersonRequest pr1 = new PersonRequest("Isabel@mail.dk", "aa", "aa", "aa",a1);
+        PersonRequest pr2 = new PersonRequest("Unik@mail.dk", "aa", "aa", "aa",a1);
 
         //Tests whether the correct exception is thrown when the email is not unique
 
@@ -106,9 +114,14 @@ class PersonServiceTest {
     //Virker 22/3
     @Test
     void testUpdatePerson() throws Exception {
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+        addressOne= a1.getId();
+
         //Ændret person
         PersonRequest updatedPersonRequest= new PersonRequest
-                ("ændret@mail.dk", "ændret", "ændret", "ændret");
+                ("ændret@mail.dk", "ændret", "ændret", "ændret",a1);
 
         //Metoden kaldes
         personService.updatePerson(updatedPersonRequest, person1Id);
