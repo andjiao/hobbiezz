@@ -2,6 +2,9 @@ package com.example.hobbiezz.service;
 
 import com.example.hobbiezz.dto.PersonRequest;
 import com.example.hobbiezz.dto.PersonResponse;
+import com.example.hobbiezz.entity.Address;
+import com.example.hobbiezz.entity.Hobby;
+import com.example.hobbiezz.entity.HobbyInfo;
 import com.example.hobbiezz.entity.Person;
 import com.example.hobbiezz.repository.AddressRepository;
 import com.example.hobbiezz.repository.HobbyInfoRepository;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,18 +40,70 @@ class PersonServiceTest {
 
     PersonService personService;
 
-    static int person1Id, person2Id;
+    static int person1Id, person2Id, hobbyInfoId;
 
     @BeforeAll
     static void setup(@Autowired PersonRepository personRepository, @Autowired AddressRepository addressRepository,
                       @Autowired HobbyInfoRepository hobbyInfoRepository, @Autowired HobbyRepository hobbyRepository) {
-        addressRepository.deleteAll();
-        hobbyInfoRepository.deleteAll();
         hobbyRepository.deleteAll();
         personRepository.deleteAll();
-        person1Id = personRepository.save(new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911")).getId();
-        person2Id = personRepository.save(new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888")).getId();
-    }
+        addressRepository.deleteAll();
+        hobbyInfoRepository.deleteAll();
+
+        //MakeAdresses
+        Address a1 = new Address
+                ("GadeVænget 1", "3. tv", "2200", "København");
+        addressRepository.save(a1);
+
+        Address a2 = new Address
+                ("GadeVænget 2", "2. tv", "2200", "København");
+        addressRepository.save(a2);
+
+
+
+        //MakePeople
+        Person p1 = personRepository.save
+                (new Person("Isabel@mail.dk", "Isabel", "Isabelsen", "911", a1));
+        personOneId = p1.getId();
+
+        Person p2 = personRepository.save
+                (new Person("Andrea@mail.dk", "Andrea", "Andreasen", "88888888", a2));
+        personTwoId = p2.getId();
+
+
+        //Makehobbies
+
+        h1 = hobbyRepository.save(new Hobby
+                ("Fodbold", "category", "fodbold.dk", "out"));
+
+        h2 = hobbyRepository.save(new Hobby
+                ("Håndbold", "category", "håndbold.dk", "out"));
+
+        h3 = hobbyRepository.save(new Hobby
+                ("LARP", "category", "LARP.dk", "out"));
+
+        Hobby h4 = hobbyRepository.save(new Hobby
+                ("Strikning", "category", "strik.dk", "out"));
+
+        Hobby h5 = hobbyRepository.save(new Hobby
+                ("Kattepasning", "category", "kat.dk", "out"));
+
+
+        //MakeHobbyInfos
+        HobbyInfo hi1 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,01,9,23),h1,p1));
+
+        HobbyInfo hi2 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,02,9,23),h5,p1));
+
+        HobbyInfo hi3 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,03,9,23),h3,p2));
+
+        HobbyInfo hi4 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,04,9,23),h1,p2));
+
+        HobbyInfo hi5 = hobbyInfoRepository.save(new HobbyInfo
+                (LocalDateTime.of(2022,03,05,9,23),h4,p1)); }
 
 
     @BeforeEach
@@ -135,4 +191,10 @@ class PersonServiceTest {
 
     }
 
-}
+    @Test
+    void deleteHobbiesConnectedToPerson() {
+
+
+    }
+
+    }
