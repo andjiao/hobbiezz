@@ -1,14 +1,14 @@
-package HobbySQL;
+package HobbySQL.config;
 
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.repository.HobbyRepository;
 
-public class makeHobby {
+public class MakeHobby {
 
     Hobby hobby;
     HobbyRepository hobbyRepository;
 
-    public makeHobby(HobbyRepository hobbyRepository) {
+    public MakeHobby(HobbyRepository hobbyRepository) {
         this.hobbyRepository = hobbyRepository;
     }
 
