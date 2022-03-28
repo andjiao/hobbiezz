@@ -1,4 +1,4 @@
-package com.example.hobbiezz.configuration;
+package HobbySQL;
 
 import com.example.hobbiezz.entity.Hobby;
 import com.example.hobbiezz.repository.HobbyRepository;
