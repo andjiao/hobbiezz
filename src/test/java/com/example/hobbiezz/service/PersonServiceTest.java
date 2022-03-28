@@ -52,7 +52,7 @@ class PersonServiceTest {
 
     @BeforeEach
     public void setupService() {
-        personService = new PersonService(personRepository);
+        personService = new PersonService(personRepository, hobbyRepository, hobbyInfoRepository);
     }
 
     //Virker 22/3

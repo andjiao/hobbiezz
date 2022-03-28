@@ -11,6 +11,7 @@ import com.example.hobbiezz.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,7 +22,8 @@ public class HobbyInfoService {
     PersonRepository personRepository;
     Person person;
 
-    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, HobbyRepository hobbyRepository, PersonRepository personRepository) {
+    public HobbyInfoService(HobbyInfoRepository hobbyInfoRepo, HobbyRepository hobbyRepository,
+                            PersonRepository personRepository) {
         this.hobbyInfoRepo = hobbyInfoRepo;
         this.hobbyRepository = hobbyRepository;
         this.personRepository = personRepository;
@@ -61,6 +63,19 @@ public class HobbyInfoService {
     public void getPersonsHobbies(Person person){
 
     }
+
+    public List<HobbyInfoResponse> findHobbyInfosConnectedToHobby(Hobby hobby){
+        List<HobbyInfo> hobbyInfos = hobbyInfoRepo.findHobbyInfosByHobbyObject(hobby);
+
+        List<HobbyInfoResponse> hobbyInfoResponses = new ArrayList<>();
+
+        for (HobbyInfo hobbyInfo : hobbyInfos) {
+            hobbyInfoResponses.add(new HobbyInfoResponse(hobbyInfo));
+        }
+
+        return hobbyInfoResponses;
+    }
+
 
     public void deleteHobbyInfo(int id){
         hobbyInfoRepo.deleteById(id);
